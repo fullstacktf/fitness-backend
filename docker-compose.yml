@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  node:
+    build: ./backend
+    container_name: "youLift-backend"
+    depends_on:
+      - db
+    networks:
+      - youLift
+  db:
+    image: "mariadb:10.5.6"
+    container_name: "youLift-bbdd"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: default
+      MYSQL_DATABASE: bbdd
+      MYSQL_USER: user
+      MYSQL_PASSWORD: default
+    networks:
+      - youLift
+networks:
+  youLift:
+    name: youLift-network
