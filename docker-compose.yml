@@ -1,24 +1,44 @@
 version: "3.7"
 services:
-  node:
-    build: ./backend
-    container_name: "youLift-backend"
-    depends_on:
-      - db
-    networks:
-      - youLift
   db:
     image: "mariadb:10.5.6"
     container_name: "youLift-bbdd"
     restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      youLift:
+        ipv4_address: 172.20.230.5
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "false"
       MYSQL_ROOT_PASSWORD: "ZmKFxxUAPnDjXzcRyB1Jvipnp"
       MYSQL_DATABASE: "youlift"
       MYSQL_USER: "youlift"
       MYSQL_PASSWORD: "2WQdLn6yxEAJYutd8osG5QqX1"
+
+  go:
+    build: ./backend
+    container_name: "youLift-backend"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
     networks:
-      - youLift
+      youLift:
+        ipv4_address: 172.20.230.6
+    command: sh -c "/wait && /app/youLift/youLift"
+    environment:
+      - WAIT_HOSTS=youLift-bbdd:3306
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=10
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+
 networks:
   youLift:
     name: youLift-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.230.0/24
+          gateway: 172.20.230.1
