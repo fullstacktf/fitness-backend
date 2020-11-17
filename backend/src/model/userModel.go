@@ -1,6 +1,8 @@
 package model
 
-import "time"
+import (
+	"time"
+)
 
 // User model
 type User struct {
@@ -14,4 +16,34 @@ type User struct {
 	Address   string    `gorm:"column:address;type:varchar(100)"`
 	UserRole  uint8     `gorm:"column:user_role;type:mediumint unsigned"`
 	Role      Role      `gorm:"foreignKey:UserRole;references:ID"`
+}
+
+// TableName for User model
+func (u *User) TableName() string {
+	return "users"
+}
+
+// CreateUser Create a new user
+func (u *User) CreateUser() string {
+	return "CreateUser"
+}
+
+// GetUser Get user by id
+func (u *User) GetUser() string {
+	return "GetUser"
+}
+
+// GetUsers Get all users
+func (u *User) GetUsers() string {
+	return "GetUsers"
+}
+
+// UpdateUser Update specific user
+func (u *User) UpdateUser() string {
+	return "UpdateUser"
+}
+
+// DeleteUser Delete user by id
+func (u *User) DeleteUser() string {
+	return "DeleteUser"
 }

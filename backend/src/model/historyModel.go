@@ -17,3 +17,13 @@ type History struct {
 func (h *History) TableName() string {
 	return "history"
 }
+
+// CreateHistory Create a new user
+func (h *History) CreateHistory() string {
+	return "CreateHistory"
+}
+
+// UpdateHistory Create a new user
+func (h *History) UpdateHistory() string {
+	return "UpdateHistory"
+}
