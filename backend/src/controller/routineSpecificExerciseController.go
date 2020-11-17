@@ -10,25 +10,25 @@ import (
 
 var routineSpecificExerciseModel model.RoutineSpecificExercise
 
-// CreateRoutineSpecificExercise
+// CreateRoutineSpecificExercise Creates a routine specific exercise
 func CreateRoutineSpecificExercise(c *gin.Context) {
 	prueba := routineSpecificExerciseModel.CreateRoutineSpecificExercise()
 	fmt.Println(prueba)
 }
 
-// GetRoutineSpecificExercise
+// GetRoutineSpecificExercise Gets a routine specific exercise
 func GetRoutineSpecificExercise(c *gin.Context) {
 	prueba := routineSpecificExerciseModel.GetRoutineSpecificExercise()
 	fmt.Println(prueba)
 }
 
-// UpdateRoutineSpecificExercise
+// UpdateRoutineSpecificExercise Updates a routine specific exercises
 func UpdateRoutineSpecificExercise(c *gin.Context) {
 	prueba := routineSpecificExerciseModel.UpdateRoutineSpecificExercise()
 	fmt.Println(prueba)
 }
 
-// DeleteRoutineSpecificExercise
+// DeleteRoutineSpecificExercise Deletes a routine specific exercise
 func DeleteRoutineSpecificExercise(c *gin.Context) {
 	prueba := routineSpecificExerciseModel.DeleteRoutineSpecificExercise()
 	fmt.Println(prueba)
