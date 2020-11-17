@@ -23,6 +23,6 @@ func UpdateMuscle(c *gin.Context) {
 
 }
 
-func DeleteMuscle(c *gin.Content) {
+func DeleteMuscle(c *gin.Context) {
 
 }

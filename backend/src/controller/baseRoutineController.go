@@ -23,6 +23,6 @@ func UpdateBaseRoutine(c *gin.Context) {
 
 }
 
-func DeleteBaseRoutine(c *gin.Content) {
+func DeleteBaseRoutine(c *gin.Context) {
 
 }

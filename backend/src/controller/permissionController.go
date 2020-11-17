@@ -23,6 +23,6 @@ func UpdatePermission(c *gin.Context) {
 
 }
 
-func DeletePermission(c *gin.Content) {
+func DeletePermission(c *gin.Context) {
 
 }

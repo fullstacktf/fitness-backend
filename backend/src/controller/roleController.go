@@ -23,6 +23,6 @@ func UpdateRole(c *gin.Context) {
 
 }
 
-func DeleteRole(c *gin.Content) {
+func DeleteRole(c *gin.Context) {
 
 }

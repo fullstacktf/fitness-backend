@@ -23,6 +23,6 @@ func UpdateBaseExercise(c *gin.Context) {
 
 }
 
-func DeleteBaseExercise(c *gin.Content) {
+func DeleteBaseExercise(c *gin.Context) {
 
 }

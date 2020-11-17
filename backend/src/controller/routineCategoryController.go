@@ -23,6 +23,6 @@ func UpdateRoutineCategory(c *gin.Context) {
 
 }
 
-func DeleteRoutineCategory(c *gin.Content) {
+func DeleteRoutineCategory(c *gin.Context) {
 
 }
