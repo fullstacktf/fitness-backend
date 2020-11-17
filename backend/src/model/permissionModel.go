@@ -12,6 +12,16 @@ type Permission struct {
 	Description string `gorm:"column:description;type:varchar(30);unique"`
 }
 
+//TableName function
+func (p *Permission) TableName() string {
+	return "permissions"
+}
+
+//CreatePermission function
+func (p *Permission) CreatePermission() string {
+	return "Create a Permission"
+}
+
 // GetPermission function
 func GetPermission(id uint8) *Permission {
 	permission := Permission{}
@@ -21,6 +31,26 @@ func GetPermission(id uint8) *Permission {
 		log.Fatal(result.Error)
 	}
 	return &permission
+}
+
+// GetPermission funtion bew
+func (p *Permission) GetPermission() string {
+	return "GetPermission"
+}
+
+//GetPermissions function
+func (p *Permission) GetPermissions() string {
+	return "Get all permissions"
+}
+
+//UpdatePermission by id
+func (p *Permission) UpdatePermission() string {
+	return "Update a permission"
+}
+
+//DeletePermission by id
+func (p *Permission) DeletePermission() string {
+	return "Delete a permission"
 }
 
 // PopulatePermissions function
