@@ -11,7 +11,7 @@ type UserWeightHistory struct {
 	User   User      `gorm:"foreignKey:UserID;references:ID"`
 }
 
-// TableName for UserPass model
+// TableName Function to change the name of a table. In this case of UserWeightHistory model
 func (uwh *UserWeightHistory) TableName() string {
 	return "user_weight_history"
 }

@@ -6,7 +6,7 @@ type ExerciseCategory struct {
 	Name string `gorm:"column:name;type:varchar(25)"`
 }
 
-// TableName for RoutineCategory model
+// TableName Function to change the name of a table. In this case of ExerciseCategory model
 func (ec *ExerciseCategory) TableName() string {
 	return "exercise_category"
 }

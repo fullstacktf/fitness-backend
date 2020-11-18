@@ -13,7 +13,7 @@ type History struct {
 	RoutineSpecificExercise    RoutineSpecificExercise `gorm:"foreignKey:RoutineSpecificExercisesID;references:ID"`
 }
 
-// TableName for History model
+// TableName // TableName Function to change the name of a table. In this case of History model
 func (h *History) TableName() string {
 	return "history"
 }
