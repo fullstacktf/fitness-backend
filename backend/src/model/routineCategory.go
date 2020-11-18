@@ -6,7 +6,7 @@ type RoutineCategory struct {
 	Name string `gorm:"column:name;type:varchar(25)"`
 }
 
-// TableName for RoutineCategory model
+// TableName Function to change the name of a table. In this case of RoutineCategory model
 func (rc *RoutineCategory) TableName() string {
 	return "routine_category"
 }

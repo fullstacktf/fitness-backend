@@ -24,11 +24,10 @@ func BuildDBConfig() *DBConfig {
 		DBName:   constants.DatabaseName,
 		Password: constants.DatabasePassword,
 	}
-	fmt.Println(dbConfig)
 	return &dbConfig
 }
 
-// DbURL function
+// DbURL Function to return the database configuration
 func DbURL(dbConfig *DBConfig) string {
 	return fmt.Sprintf(
 		"%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",

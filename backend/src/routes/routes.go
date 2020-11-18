@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// SetupRouter function
+// SetupRouter Function to initialize and configure gin-gonic
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/v1")

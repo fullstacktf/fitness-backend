@@ -13,7 +13,7 @@ type Role struct {
 	Permissions []*Permission `gorm:"many2many:roles_permissions;"`
 }
 
-// PopulateRoles function
+// PopulateRoles Function to populate the Role model
 func PopulateRoles() {
 	adminRole := Role{
 		ID:          1,
@@ -49,7 +49,7 @@ func PopulateRoles() {
 	storage.DB.Create(&roles)
 }
 
-// GetRole function
+// GetRole Function to return a specific role
 func GetRole(id uint8) *Role {
 	role := Role{}
 	result := storage.DB.Find(&role, id)
@@ -60,7 +60,7 @@ func GetRole(id uint8) *Role {
 	return &role
 }
 
-// AssociatePermissions function
+// AssociatePermissions Function to associate permissions to roles
 func AssociatePermissions() {
 	adminPermissions := []*Permission{
 		GetPermission(1),
