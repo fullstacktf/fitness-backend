@@ -11,7 +11,7 @@ type AssignedRoutine struct {
 	User            User            `gorm:"foreignKey:UserID;references:ID"`
 }
 
-// TableName for User model
+// TableName Function to change the name of a table.
 func (ar *AssignedRoutine) TableName() string {
 	return "assigned_routines"
 }
