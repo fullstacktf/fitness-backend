@@ -6,7 +6,7 @@ type Muscle struct {
 	Name string `gorm:"column:name;type:varchar(20)"`
 }
 
-// TableName for RoutineCategory model
+// TableName Function to change the name of a table.
 func (m *Muscle) TableName() string {
 	return "muscles"
 }

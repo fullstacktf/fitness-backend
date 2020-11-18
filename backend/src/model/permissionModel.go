@@ -12,7 +12,7 @@ type Permission struct {
 	Description string `gorm:"column:description;type:varchar(30);unique"`
 }
 
-//TableName function
+// TableName Function to change the name of a table.
 func (p *Permission) TableName() string {
 	return "permissions"
 }

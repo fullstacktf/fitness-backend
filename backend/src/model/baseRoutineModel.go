@@ -10,7 +10,7 @@ type BaseRoutine struct {
 	BaseExercises   []*BaseExercise `gorm:"many2many:base_routines_base_exercises"`
 }
 
-//TableName function
+// TableName Function to change the name of a table.
 func (br *BaseRoutine) TableName() string {
 	return "base_exercises"
 }

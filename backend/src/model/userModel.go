@@ -18,7 +18,7 @@ type User struct {
 	Role      Role      `gorm:"foreignKey:UserRole;references:ID"`
 }
 
-// TableName for User model
+// TableName Function to change the name of a table.
 func (u *User) TableName() string {
 	return "users"
 }

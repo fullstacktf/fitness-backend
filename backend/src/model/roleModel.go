@@ -13,7 +13,7 @@ type Role struct {
 	Permissions []*Permission `gorm:"many2many:roles_permissions;"`
 }
 
-//TableName function
+// TableName Function to change the name of a table.
 func (r *Role) TableName() string {
 	return "roles"
 }

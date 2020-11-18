@@ -12,7 +12,7 @@ type UserStat struct {
 	User         User      `gorm:"foreignKey:UserID;references:ID"`
 }
 
-// TableName for User stats model
+// TableName Function to change the name of a table.
 func (u *UserStat) TableName() string {
 	return "user_stats"
 }
