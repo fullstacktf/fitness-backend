@@ -12,7 +12,7 @@ type Permission struct {
 	Description string `gorm:"column:description;type:varchar(30);unique"`
 }
 
-// GetPermission function
+// GetPermission Function to return a specific permission
 func GetPermission(id uint8) *Permission {
 	permission := Permission{}
 	result := storage.DB.Find(&permission, id)
@@ -23,9 +23,8 @@ func GetPermission(id uint8) *Permission {
 	return &permission
 }
 
-// PopulatePermissions function
+// PopulatePermissions Function to populate the Permission model
 func PopulatePermissions() {
-	//roles table, this will also grant permissions on editing a role's permissions
 	createRolesPermission := Permission{
 		ID:          1,
 		Description: "CREATE_ROLES",
@@ -68,8 +67,6 @@ func PopulatePermissions() {
 		Description: "DELETE_PERMISSIONS",
 	}
 
-	// users table
-
 	createUsersPermission := Permission{
 		ID:          9,
 		Description: "CREATE_USERS",
@@ -90,14 +87,10 @@ func PopulatePermissions() {
 		Description: "DELETE_USERS",
 	}
 
-	// change a password for the user
-
 	updatePasswordPermission := Permission{
 		ID:          13,
 		Description: "UPDATE_PASSWORD",
 	}
-
-	// routines
 
 	createRoutinesPermission := Permission{
 		ID:          14,
@@ -119,8 +112,6 @@ func PopulatePermissions() {
 		Description: "DELETE_ROUTINES",
 	}
 
-	// routine_category table
-
 	createRoutineCategoriesPermission := Permission{
 		ID:          18,
 		Description: "CREATE_ROUTINE_CATEGORIES",
@@ -140,8 +131,6 @@ func PopulatePermissions() {
 		ID:          21,
 		Description: "DELETE_ROUTINE_CATEGORIES",
 	}
-
-	// routines_user table, for assigning specific routines to users
 
 	createRoutinesUserPermission := Permission{
 		ID:          22,
@@ -163,8 +152,6 @@ func PopulatePermissions() {
 		Description: "DELETE_ROUTINES_USER",
 	}
 
-	// exercises table
-
 	createExercisesPermission := Permission{
 		ID:          26,
 		Description: "CREATE_EXERCISES",
@@ -184,8 +171,6 @@ func PopulatePermissions() {
 		ID:          29,
 		Description: "DELETE_EXERCISES",
 	}
-
-	// routines_exercises table, for creating specific exercises with its series and repetitions in a routine
 
 	createRoutinesExercisesPermission := Permission{
 		ID:          30,
@@ -207,8 +192,6 @@ func PopulatePermissions() {
 		Description: "DELETE_ROUTINES_EXERCISES",
 	}
 
-	// exercises_category table
-
 	createExerciseCategoryPermission := Permission{
 		ID:          34,
 		Description: "CREATE_EXERCISE_CATEGORY",
@@ -229,8 +212,6 @@ func PopulatePermissions() {
 		Description: "DELETE_EXERCISE_CATEGORY",
 	}
 
-	// muscles table
-
 	createMusclesPermission := Permission{
 		ID:          38,
 		Description: "CREATE_MUSCLES",
@@ -250,8 +231,6 @@ func PopulatePermissions() {
 		ID:          41,
 		Description: "DELETE_MUSCLES",
 	}
-
-	// routines
 
 	createBaseRoutinesPermission := Permission{
 		ID:          42,

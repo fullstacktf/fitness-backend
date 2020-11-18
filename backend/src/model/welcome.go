@@ -2,18 +2,18 @@ package model
 
 import "time"
 
-// Welcome struct
+// Welcome model
 type Welcome struct {
 	Message string
 	Date    time.Time
 }
 
-// TableName for Welcome model
+// TableName Function to change the name of a table. In this case of Welcome model
 func (w *Welcome) TableName() string {
 	return "welcome"
 }
 
-// Get of the Welcome struct
+// Get of the Welcome model
 func (w *Welcome) Get() error {
 	welcome := Welcome{
 		Message: "Welcome to the youLift API",

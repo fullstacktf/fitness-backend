@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetWelcome function
+// GetWelcome Function to return the user welcome message
 func GetWelcome(c *gin.Context) {
 	var welcome model.Welcome
 	welcome.Get()

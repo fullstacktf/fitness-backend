@@ -1,7 +1,6 @@
 package constants
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 
@@ -9,15 +8,15 @@ import (
 )
 
 var (
-	// DatabaseHost host name
+	// DatabaseHost Database host name
 	DatabaseHost string
-	// DatabaseUser user name
+	// DatabaseUser Database user name
 	DatabaseUser string
-	// DatabaseName database name
+	// DatabaseName Database name
 	DatabaseName string
-	// DatabasePassword database password
+	// DatabasePassword Database password
 	DatabasePassword string
-	// DatabasePort port number
+	// DatabasePort Database port number
 	DatabasePort int
 )
 
@@ -29,6 +28,4 @@ func init() {
 	DatabaseName = os.Getenv("DATABASE_NAME")
 	DatabasePassword = os.Getenv("DATABASE_PASSWORD")
 	DatabasePort, _ = strconv.Atoi(os.Getenv("DATABASE_PORT"))
-
-	fmt.Println("VARIABLE:", DatabaseHost)
 }
