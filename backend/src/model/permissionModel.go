@@ -12,7 +12,17 @@ type Permission struct {
 	Description string `gorm:"column:description;type:varchar(30);unique"`
 }
 
-// GetPermission Function to return a specific permission
+// TableName Function to change the name of a table.
+func (p *Permission) TableName() string {
+	return "permissions"
+}
+
+// CreatePermission Creates a permission
+func (p *Permission) CreatePermission() string {
+	return "Create a Permission"
+}
+
+// GetPermission Function to return a specific permission. Not for the API controller
 func GetPermission(id uint8) *Permission {
 	permission := Permission{}
 	result := storage.DB.Find(&permission, id)
@@ -21,6 +31,26 @@ func GetPermission(id uint8) *Permission {
 		log.Fatal(result.Error)
 	}
 	return &permission
+}
+
+// GetPermission Gets a permission by ID
+func (p *Permission) GetPermission() string {
+	return "GetPermission"
+}
+
+//GetPermissions Gets all permissions
+func (p *Permission) GetPermissions() string {
+	return "Get all permissions"
+}
+
+//UpdatePermission Updates the description of the permission by ID
+func (p *Permission) UpdatePermission() string {
+	return "Update a permission"
+}
+
+//DeletePermission Deletes a permission by ID
+func (p *Permission) DeletePermission() string {
+	return "Delete a permission"
 }
 
 // PopulatePermissions Function to populate the Permission model

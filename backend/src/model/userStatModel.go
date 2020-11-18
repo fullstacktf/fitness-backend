@@ -11,3 +11,13 @@ type UserStat struct {
 	InjuredUntil time.Time `gorm:"column:injured_until;type:date"`
 	User         User      `gorm:"foreignKey:UserID;references:ID"`
 }
+
+// TableName Function to change the name of a table.
+func (u *UserStat) TableName() string {
+	return "user_stats"
+}
+
+// UpdateUserStat Updates the user stats
+func (u *UserStat) UpdateUserStat() string {
+	return "UpdateUserStat"
+}

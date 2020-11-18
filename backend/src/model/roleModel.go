@@ -13,6 +13,11 @@ type Role struct {
 	Permissions []*Permission `gorm:"many2many:roles_permissions;"`
 }
 
+// TableName Function to change the name of a table.
+func (r *Role) TableName() string {
+	return "roles"
+}
+
 // PopulateRoles Function to populate the Role model
 func PopulateRoles() {
 	adminRole := Role{
@@ -49,7 +54,12 @@ func PopulateRoles() {
 	storage.DB.Create(&roles)
 }
 
-// GetRole Function to return a specific role
+// CreateRole Creates a role
+func (r *Role) CreateRole() string {
+	return "Create a Role"
+}
+
+// GetRole Function to return a specific role. Not for the API controller
 func GetRole(id uint8) *Role {
 	role := Role{}
 	result := storage.DB.Find(&role, id)
@@ -58,6 +68,26 @@ func GetRole(id uint8) *Role {
 		log.Fatal(result.Error)
 	}
 	return &role
+}
+
+// GetRole Gets a role
+func (r *Role) GetRole() string {
+	return "getRole"
+}
+
+// GetRoles Gets all roles
+func (r *Role) GetRoles() string {
+	return "Get all Roles"
+}
+
+// UpdateRole Updates a role
+func (r *Role) UpdateRole() string {
+	return "Update a Role"
+}
+
+// DeleteRole Deletes a role
+func (r *Role) DeleteRole() string {
+	return "Delete a Role"
 }
 
 // AssociatePermissions Function to associate permissions to roles

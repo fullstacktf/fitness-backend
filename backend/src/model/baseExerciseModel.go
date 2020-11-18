@@ -12,3 +12,33 @@ type BaseExercise struct {
 	ExerciseCategory ExerciseCategory `gorm:"foreignKey:CategoryID;references:ID"`
 	Muscles          []*Muscle        `gorm:"many2many:exercises_muscles;"`
 }
+
+// TableName Function to change the name of a table.
+func (be *BaseExercise) TableName() string {
+	return "base_exercises"
+}
+
+// CreateBaseExercise Create base exercise
+func (be *BaseExercise) CreateBaseExercise() string {
+	return "Create a Base Exercise"
+}
+
+// GetBaseExercise Gets a base exercise
+func (be *BaseExercise) GetBaseExercise() string {
+	return "Get a BaseExercise"
+}
+
+// GetBaseExercises Gets all base exercise
+func (be *BaseExercise) GetBaseExercises() string {
+	return "Get all BaseExercises"
+}
+
+// UpdateBaseExercise Updates a base exercise
+func (be *BaseExercise) UpdateBaseExercise() string {
+	return "Update a BaseExxercises"
+}
+
+// DeleteBaseExercise Deletes a base exercise
+func (be *BaseExercise) DeleteBaseExercise() string {
+	return "Delete a BaseExercises"
+}
