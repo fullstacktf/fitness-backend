@@ -21,7 +21,7 @@ func GetMuscle(c *gin.Context) {
 	fmt.Println(prueba)
 }
 
-// GetMuscles get all muscle groups
+// GetMuscles gets all muscle groups
 func GetMuscles(c *gin.Context) {
 	prueba := muscleModel.GetMuscles()
 	fmt.Println(prueba)

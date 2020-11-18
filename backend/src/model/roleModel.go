@@ -54,12 +54,12 @@ func PopulateRoles() {
 	storage.DB.Create(&roles)
 }
 
-// CreateRole function
+// CreateRole Creates a role
 func (r *Role) CreateRole() string {
 	return "Create a Role"
 }
 
-// GetRole Function to return a specific role
+// GetRole Function to return a specific role. Not for the API controller
 func GetRole(id uint8) *Role {
 	role := Role{}
 	result := storage.DB.Find(&role, id)
@@ -70,22 +70,22 @@ func GetRole(id uint8) *Role {
 	return &role
 }
 
-// GetRole function de verdad
+// GetRole Gets a role
 func (r *Role) GetRole() string {
 	return "getRole"
 }
 
-// GetRoles all of them
+// GetRoles Gets all roles
 func (r *Role) GetRoles() string {
 	return "Get all Roles"
 }
 
-// UpdateRole function
+// UpdateRole Updates a role
 func (r *Role) UpdateRole() string {
 	return "Update a Role"
 }
 
-// DeleteRole function
+// DeleteRole Deletes a role
 func (r *Role) DeleteRole() string {
 	return "Delete a Role"
 }

@@ -12,7 +12,7 @@ func (up *UserPass) TableName() string {
 	return "user_pass"
 }
 
-// UpdateUserPass updates the users pass
+// UpdateUserPass Updates the users pass
 func (up *UserPass) UpdateUserPass() string {
 	return "UpdateUserPass"
 }

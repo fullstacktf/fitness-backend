@@ -15,27 +15,27 @@ func (br *BaseRoutine) TableName() string {
 	return "base_exercises"
 }
 
-// CreateBaseRoutine function
+// CreateBaseRoutine Creates a base routine
 func (br *BaseRoutine) CreateBaseRoutine() string {
 	return "Create a Base Routine"
 }
 
-//GetBaseRoutine function
+// GetBaseRoutine Gets a base routine
 func (br *BaseRoutine) GetBaseRoutine() string {
 	return "Get a BaseRoutine"
 }
 
-// GetBaseRoutines function
+// GetBaseRoutines Gets all base routine
 func (br *BaseRoutine) GetBaseRoutines() string {
 	return "Get all BaseExercises"
 }
 
-// UpdateBaseRoutine function
+// UpdateBaseRoutine Updates a base routine
 func (br *BaseRoutine) UpdateBaseRoutine() string {
 	return "Update a Base Routine"
 }
 
-// DeleteBaseRoutine function
+// DeleteBaseRoutine Deletes a base routine
 func (br *BaseRoutine) DeleteBaseRoutine() string {
 	return "Delete a Base Routine"
 }

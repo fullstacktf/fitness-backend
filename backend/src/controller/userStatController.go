@@ -9,7 +9,7 @@ import (
 
 var userStatModel model.UserStat
 
-// UpdateUserStat updates the user stats
+// UpdateUserStat Updates the user stats
 func UpdateUserStat(c *gin.Context) {
 	prueba := userStatModel.UpdateUserStat()
 	fmt.Println(prueba)

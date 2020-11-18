@@ -11,27 +11,27 @@ func (rc *RoutineCategory) TableName() string {
 	return "routine_category"
 }
 
-// CreateRoutineCategory function
+// CreateRoutineCategory Creates a routine category
 func (rc *RoutineCategory) CreateRoutineCategory() string {
 	return "Create a Routinecategory"
 }
 
-//GetRoutineCategory function
+// GetRoutineCategory Gets a routine category
 func (rc *RoutineCategory) GetRoutineCategory() string {
 	return "Get a Routinecategory"
 }
 
-// GetRoutineCategories function
+// GetRoutineCategories Gets all routine categories
 func (rc *RoutineCategory) GetRoutineCategories() string {
 	return "Get all Routinecategory"
 }
 
-// UpdateRoutineCategory function
+// UpdateRoutineCategory Updates a routine category
 func (rc *RoutineCategory) UpdateRoutineCategory() string {
 	return "Update a Routinecategory"
 }
 
-// DeleteRoutineCategory function
+// DeleteRoutineCategory Deletes a routine category
 func (rc *RoutineCategory) DeleteRoutineCategory() string {
 	return "Delete a Routinecategory"
 }

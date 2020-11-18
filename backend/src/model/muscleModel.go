@@ -11,27 +11,27 @@ func (m *Muscle) TableName() string {
 	return "muscles"
 }
 
-// CreateMuscle function
+// CreateMuscle Create a muscle group
 func (m *Muscle) CreateMuscle() string {
 	return "Create a Muscle"
 }
 
-// GetMuscle function
+// GetMuscle gets a muscle group
 func (m *Muscle) GetMuscle() string {
 	return "Get a Muscle"
 }
 
-// GetMuscles function
+// GetMuscles gets all muscle groups
 func (m *Muscle) GetMuscles() string {
 	return "Get all Muscles"
 }
 
-// UpdateMuscle function
+// UpdateMuscle Updates a muscle group
 func (m *Muscle) UpdateMuscle() string {
 	return "Update a Muscle"
 }
 
-// DeleteMuscle function
+// DeleteMuscle Deletes a muscle group
 func (m *Muscle) DeleteMuscle() string {
 	return "Delete a Muscle"
 }

@@ -17,7 +17,7 @@ func (u *UserStat) TableName() string {
 	return "user_stats"
 }
 
-// UpdateUserStat updates the user stats
+// UpdateUserStat Updates the user stats
 func (u *UserStat) UpdateUserStat() string {
 	return "UpdateUserStat"
 }

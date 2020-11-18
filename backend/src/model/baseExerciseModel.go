@@ -13,37 +13,32 @@ type BaseExercise struct {
 	Muscles          []*Muscle        `gorm:"many2many:exercises_muscles;"`
 }
 
-//TableName function
+// TableName Function to change the name of a table.
 func (be *BaseExercise) TableName() string {
 	return "base_exercises"
 }
 
-// CreateBaseExercise function
+// CreateBaseExercise Create base exercise
 func (be *BaseExercise) CreateBaseExercise() string {
 	return "Create a Base Exercise"
 }
 
-//GetBaseExercise function
+// GetBaseExercise Gets a base exercise
 func (be *BaseExercise) GetBaseExercise() string {
 	return "Get a BaseExercise"
 }
 
-// GetBaseExercises function
+// GetBaseExercises Gets all base exercise
 func (be *BaseExercise) GetBaseExercises() string {
 	return "Get all BaseExercises"
 }
 
-// // GetBaseExercisesByCategoryID function
-// func (be *BaseExercise) GetBaseExercisesByCategoryID() string {
-// 	return "Get all BaseExercises by category"
-// }
-
-// UpdateBaseExercise function
+// UpdateBaseExercise Updates a base exercise
 func (be *BaseExercise) UpdateBaseExercise() string {
 	return "Update a BaseExxercises"
 }
 
-// DeleteBaseExercise function
+// DeleteBaseExercise Deletes a base exercise
 func (be *BaseExercise) DeleteBaseExercise() string {
 	return "Delete a BaseExercises"
 }

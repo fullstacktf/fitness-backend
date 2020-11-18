@@ -17,12 +17,12 @@ func (p *Permission) TableName() string {
 	return "permissions"
 }
 
-//CreatePermission function
+// CreatePermission Creates a permission
 func (p *Permission) CreatePermission() string {
 	return "Create a Permission"
 }
 
-// GetPermission Function to return a specific permission
+// GetPermission Function to return a specific permission. Not for the API controller
 func GetPermission(id uint8) *Permission {
 	permission := Permission{}
 	result := storage.DB.Find(&permission, id)
