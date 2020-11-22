@@ -12,7 +12,7 @@ type BaseRoutine struct {
 
 // TableName Function to change the name of a table.
 func (br *BaseRoutine) TableName() string {
-	return "base_exercises"
+	return "base_routines"
 }
 
 // CreateBaseRoutine Creates a base routine
