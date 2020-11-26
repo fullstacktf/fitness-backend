@@ -7,14 +7,14 @@ import (
 	"github.com/fullstacktf/fitness-backend/storage"
 )
 
-// CreateUser Create a new user
+// CreateUser Create a new user with specified data in body
 func CreateUser(data model.User) error {
 
 	fmt.Println(data)
 
-	result := storage.DB.Create(&data)
+	output := storage.DB.Create(&data)
 
-	return result.Error
+	return output.Error
 }
 
 // GetUser Get user by id
@@ -25,39 +25,27 @@ func GetUser(id int) *model.User {
 	return &user
 }
 
-// GetUser Get user by DNI
-func GetUserByDni(dni string) *model.User {
-	user := model.User{}
-
-	storage.DB.Where("dni=?", dni).Find(&user)
-
-	return &user
-}
-
-// GetUser Get user by Email
-func GetUserByEmail(email string) *model.User {
-	user := model.User{}
-
-	storage.DB.Where("email=?", email).Find(&user)
-
-	return &user
-}
-
-// GetUsers Get all users
-func GetUsers() *[]model.User {
+// GetUsers Get all non deleted users and by using a filter
+func GetUsers(filter model.User) *[]model.User {
 	users := []model.User{}
-	storage.DB.Find(&users)
+	storage.DB.Where(&filter).Find(&users)
 
 	return &users
 }
 
-// UpdateUser Update specific user
-func UpdateUser(updatedUser model.User) error {
+// UpdateUser Update specific user using id param in URL
+func UpdateUser(updatedUser model.User, id int) error {
+	updatedUser.ID = uint8(id)
 
-	return nil
+	output := storage.DB.Save(&updatedUser)
+
+	return output.Error
 }
 
-// DeleteUser Delete user by id
-func DeleteUser() string {
-	return "DeleteUser"
+// DeleteUser Delete user by id, logical delete
+func DeleteUser(id int) {
+	deletedUser := GetUser(id)
+
+	storage.DB.Delete(&deletedUser)
+
 }

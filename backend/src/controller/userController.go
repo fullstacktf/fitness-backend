@@ -11,19 +11,21 @@ import (
 
 var userModel model.User
 
-// CreateUser Create a new user
+// CreateUser Create a new user with specified data in body
 func CreateUser(c *gin.Context) {
 	newUser := model.User{}
-	c.BindJSON(&newUser)
+	bodyErr := c.BindJSON(&newUser)
 
 	err := service.CreateUser(newUser)
-	if err != nil {
-		fmt.Println(err.Error())
-		error := service.GetGormErrorCode(err.Error())
 
-		c.JSON(500, error)
-	} else {
-		c.String(200, "ok")
+	if bodyErr == nil {
+		if err != nil {
+			error := service.GetGormErrorCode(err.Error())
+
+			c.JSON(500, error)
+		} else {
+			c.String(200, "ok")
+		}
 	}
 }
 
@@ -31,57 +33,33 @@ func CreateUser(c *gin.Context) {
 func GetUser(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	result := service.GetUser(id)
-	fmt.Println(result)
 
 	if result.ID == 0 {
-		c.JSON(404, nil)
+		c.JSON(404, result)
 	} else {
 		c.JSON(200, result)
 	}
 }
 
-// GetUser Get user by Email
-func GetUserByDni(c *gin.Context) {
-	dni := c.Param("dni")
-	result := service.GetUserByDni(dni)
-
-	if result.ID == 0 {
-		c.JSON(404, nil)
-	} else {
-		c.JSON(200, result)
-	}
-}
-
-// GetUser Get user by Email
-func GetUserByEmail(c *gin.Context) {
-	email := c.Param("email")
-	result := service.GetUserByEmail(email)
-
-	if result.ID == 0 {
-		c.JSON(404, nil)
-	} else {
-		c.JSON(200, result)
-	}
-}
-
-// GetUsers Get all users
+// GetUsers Get all non deleted users and by using a filter
 func GetUsers(c *gin.Context) {
-	result := service.GetUsers()
+	filter := model.User{}
+	reqErr := c.BindJSON(&filter)
 
-	if len(*result) == 0 {
-		c.JSON(404, nil)
-	} else {
+	if reqErr == nil {
+		result := service.GetUsers(filter)
 		c.JSON(200, result)
 	}
 }
 
-// UpdateUser Update specific user
+// UpdateUser Update specific user using id param in URL
 func UpdateUser(c *gin.Context) {
 
 	updatedUser := model.User{}
 	c.BindJSON(&updatedUser)
+	id, _ := strconv.Atoi(c.Param("id"))
 
-	err := service.UpdateUser(updatedUser)
+	err := service.UpdateUser(updatedUser, id)
 	if err != nil {
 		fmt.Println(err.Error())
 		error := service.GetGormErrorCode(err.Error())
@@ -92,8 +70,12 @@ func UpdateUser(c *gin.Context) {
 	}
 }
 
-// DeleteUser Delete user by id
+// DeleteUser Delete user by id, logical delete
 func DeleteUser(c *gin.Context) {
-	prueba := service.DeleteUser()
-	fmt.Println(prueba)
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	service.DeleteUser(id)
+
+	c.String(200, c.Param("id"))
+
 }

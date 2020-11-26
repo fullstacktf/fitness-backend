@@ -19,10 +19,6 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/user/:id", controller.GetUser)
 
-		v1.GET("/userByDni/:dni", controller.GetUserByDni)
-
-		v1.GET("/userByEmail/:email", controller.GetUserByEmail)
-
 		v1.GET("/users/", controller.GetUsers)
 
 		v1.PUT("/users/:id", controller.UpdateUser)
