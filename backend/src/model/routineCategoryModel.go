@@ -1,8 +1,10 @@
 package model
 
+import "gorm.io/gorm"
+
 // RoutineCategory model
 type RoutineCategory struct {
-	ID   uint8  `gorm:"column:id;type:mediumint unsigned;autoIncrement;primaryKey"`
+	gorm.Model
 	Name string `gorm:"column:name;type:varchar(25)"`
 }
 
