@@ -1,14 +1,18 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 // UserWeightHistory model
 type UserWeightHistory struct {
-	ID     uint8     `gorm:"column:id;type:mediumint unsigned;autoIncrement;primaryKey"`
+	gorm.Model
 	Weight float32   `gorm:"column:weight;type:float unsigned"`
 	Date   time.Time `gorm:"column:date;type:date"`
-	UserID uint8     `gorm:"column:user_id;type:mediumint unsigned"`
-	User   User      `gorm:"foreignKey:UserID;references:ID"`
+	UserID uint64    `gorm:"column:user_id;type:bigint(20) unsigned"`
+	User   User      `gorm:"foreignKey:UserID;"`
 }
 
 // TableName Function to change the name of a table. In this case of UserWeightHistory model

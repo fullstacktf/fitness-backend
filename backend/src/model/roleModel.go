@@ -4,11 +4,12 @@ import (
 	"log"
 
 	"github.com/fullstacktf/fitness-backend/storage"
+	"gorm.io/gorm"
 )
 
 // Role model
 type Role struct {
-	ID          uint8         `gorm:"column:id;type:mediumint unsigned;primaryKey"`
+	gorm.Model
 	Description string        `gorm:"column:description;type:varchar(20);unique"`
 	Permissions []*Permission `gorm:"many2many:roles_permissions;"`
 }
@@ -21,27 +22,19 @@ func (r *Role) TableName() string {
 // PopulateRoles Function to populate the Role model
 func PopulateRoles() {
 	adminRole := Role{
-		ID:          1,
 		Description: "Admin",
-		Permissions: nil,
 	}
 
 	trainerRole := Role{
-		ID:          2,
 		Description: "Trainer",
-		Permissions: nil,
 	}
 
 	userRole := Role{
-		ID:          3,
 		Description: "User",
-		Permissions: nil,
 	}
 
 	systemRole := Role{
-		ID:          4,
 		Description: "System",
-		Permissions: nil,
 	}
 
 	roles := []Role{
