@@ -35,7 +35,7 @@ func GetUser(c *gin.Context) {
 	result := service.GetUser(id)
 
 	if result.ID == 0 {
-		c.JSON(404, result)
+		c.JSON(404, "User not found")
 	} else {
 		c.JSON(200, result)
 	}
@@ -57,9 +57,8 @@ func UpdateUser(c *gin.Context) {
 
 	updatedUser := model.User{}
 	c.BindJSON(&updatedUser)
-	id, _ := strconv.Atoi(c.Param("id"))
 
-	err := service.UpdateUser(updatedUser, id)
+	err := service.UpdateUser(updatedUser)
 	if err != nil {
 		fmt.Println(err.Error())
 		error := service.GetGormErrorCode(err.Error())

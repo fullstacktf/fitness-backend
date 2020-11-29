@@ -34,8 +34,7 @@ func GetUsers(filter model.User) *[]model.User {
 }
 
 // UpdateUser Update specific user using id param in URL
-func UpdateUser(updatedUser model.User, id int) error {
-	updatedUser.ID = uint(id)
+func UpdateUser(updatedUser model.User) error {
 
 	output := storage.DB.Save(&updatedUser)
 
