@@ -1,16 +1,12 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
 
 // CreateUser Create a new user with specified data in body
 func CreateUser(data model.User) error {
-
-	fmt.Println(data)
 
 	output := storage.DB.Create(&data)
 
