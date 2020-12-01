@@ -73,7 +73,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/permission/:id", controller.GetPermission)
 
-		v1.GET("/permission/", controller.GetPermissions)
+		v1.GET("/permissions/", controller.GetPermissions)
 
 		v1.PUT("/permission/", controller.UpdatePermission)
 
@@ -85,7 +85,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/role/:id", controller.GetRole)
 
-		v1.GET("/role/", controller.GetRoles)
+		v1.GET("/roles/", controller.GetRoles)
 
 		v1.PUT("role/", controller.UpdateRole)
 
