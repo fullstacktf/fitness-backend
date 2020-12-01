@@ -127,6 +127,18 @@ func SetupRouter() *gin.Engine {
 
 		v1.DELETE("/routineCategory/:id", controller.DeleteRoutineCategory)
 
+		//ExerciseCategory
+
+		v1.POST("/exerciseCategory/", controller.CreateExerciseCategory)
+
+		v1.GET("/exerciseCategory/:id", controller.GetExerciseCategory)
+
+		v1.GET("/exerciseCategory/", controller.GetExerciseCategories)
+
+		v1.PUT("exerciseCategory/", controller.UpdateExerciseCategory)
+
+		v1.DELETE("/exerciseCategory/:id", controller.DeleteExerciseCategory)
+
 		//Muscles
 
 		v1.POST("/muscle/", controller.CreateMuscle)
