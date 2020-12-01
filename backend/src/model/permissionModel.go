@@ -24,13 +24,14 @@ func (p *Permission) CreatePermission() string {
 }
 
 // GetPermission Function to return a specific permission. Not for the API controller
-func GetPermission(id uint8) *Permission {
+func GetPermission(id int) *Permission {
 	permission := Permission{}
 	result := storage.DB.Find(&permission, id)
 
 	if result.Error != nil {
 		log.Fatal(result.Error)
 	}
+
 	return &permission
 }
 
