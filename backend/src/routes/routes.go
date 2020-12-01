@@ -47,7 +47,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/assignedRoutines/", controller.GetAssignedRoutines)
 
-		v1.PUT("/assignedRoutine/:id", controller.UpdateAssignedRoutine)
+		v1.PUT("/assignedRoutine/", controller.UpdateAssignedRoutine)
 
 		v1.DELETE("/assignedRoutine/:id", controller.DeleteAssignedRoutine)
 
@@ -75,7 +75,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/permission/", controller.GetPermissions)
 
-		v1.PUT("/permission/:id", controller.UpdatePermission)
+		v1.PUT("/permission/", controller.UpdatePermission)
 
 		v1.DELETE("/permission/:id", controller.DeletePermission)
 
@@ -87,7 +87,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/role/", controller.GetRoles)
 
-		v1.PUT("role/:id", controller.UpdateRole)
+		v1.PUT("role/", controller.UpdateRole)
 
 		v1.DELETE("/role/:id", controller.DeleteRole)
 
@@ -97,9 +97,9 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/baseExercise/:id", controller.GetBaseExercise)
 
-		v1.GET("/baseExercise/", controller.GetBaseExercises)
+		v1.GET("/baseExercises/", controller.GetBaseExercises)
 
-		v1.PUT("baseExercise/:id", controller.UpdateBaseExercise)
+		v1.PUT("/baseExercise/", controller.UpdateBaseExercise)
 
 		v1.DELETE("/baseExercise/:id", controller.DeleteBaseExercise)
 
@@ -111,7 +111,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/baseRoutine/", controller.GetBaseRoutines)
 
-		v1.PUT("baseRoutine/:id", controller.UpdateBaseRoutine)
+		v1.PUT("baseRoutine/", controller.UpdateBaseRoutine)
 
 		v1.DELETE("/baseRoutine/:id", controller.DeleteBaseRoutine)
 
@@ -123,7 +123,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/routineCategory/", controller.GetRoutineCategories)
 
-		v1.PUT("routineCategory/:id", controller.UpdateRoutineCategory)
+		v1.PUT("routineCategory/", controller.UpdateRoutineCategory)
 
 		v1.DELETE("/routineCategory/:id", controller.DeleteRoutineCategory)
 
@@ -135,7 +135,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/muscle/", controller.GetMuscles)
 
-		v1.PUT("muscle/:id", controller.UpdateMuscle)
+		v1.PUT("muscle/", controller.UpdateMuscle)
 
 		v1.DELETE("/muscle/:id", controller.DeleteMuscle)
 	}

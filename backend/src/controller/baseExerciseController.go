@@ -2,39 +2,77 @@ package controller
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/fullstacktf/fitness-backend/model"
+	"github.com/fullstacktf/fitness-backend/service"
 	"github.com/gin-gonic/gin"
 )
 
 var baseExerciseModel model.BaseExercise
 
-// CreateBaseExercise Create base exercise
+// CreateBaseExercise Creates a BaseExercise with the given data
 func CreateBaseExercise(c *gin.Context) {
-	prueba := baseExerciseModel.CreateBaseExercise()
-	fmt.Println(prueba)
+	newBaseExercise := model.BaseExercise{}
+	bodyErr := c.BindJSON(&newBaseExercise)
+
+	err := service.CreateBaseExercise(newBaseExercise)
+
+	if bodyErr == nil {
+		if err != nil {
+			error := service.GetGormErrorCode(err.Error())
+
+			c.JSON(500, error)
+		} else {
+			c.String(200, "ok")
+		}
+	}
 }
 
-// GetBaseExercise Gets a base exercise
+// GetBaseExercise Get BaseExercise by id
 func GetBaseExercise(c *gin.Context) {
-	prueba := baseExerciseModel.GetBaseExercise()
-	fmt.Println(prueba)
+	id, _ := strconv.Atoi(c.Param("id"))
+	result := service.GetBaseExercise(id)
+
+	if result.ID == 0 {
+		c.JSON(404, "BaseExercise not found")
+	} else {
+		c.JSON(200, result)
+	}
 }
 
-// GetBaseExercises Gets all base exercise
+// GetBaseExercises Get all non deleted BaseExercises and by using a filter
 func GetBaseExercises(c *gin.Context) {
-	prueba := baseExerciseModel.GetBaseExercises()
-	fmt.Println(prueba)
+	filter := model.BaseExercise{}
+	reqErr := c.BindJSON(&filter)
+
+	if reqErr == nil {
+		result := service.GetBaseExercises(filter)
+		c.JSON(200, result)
+	}
 }
 
-// UpdateBaseExercise Updates a base exercise
+// UpdateBaseExercise Update specific BaseExercise using id param in URL
 func UpdateBaseExercise(c *gin.Context) {
-	prueba := baseExerciseModel.UpdateBaseExercise()
-	fmt.Println(prueba)
+	updatedBaseExercise := model.BaseExercise{}
+	c.BindJSON(&updatedBaseExercise)
+
+	err := service.UpdateBaseExercise(updatedBaseExercise)
+	if err != nil {
+		fmt.Println(err.Error())
+		error := service.GetGormErrorCode(err.Error())
+
+		c.JSON(500, error)
+	} else {
+		c.String(200, "ok")
+	}
 }
 
-// DeleteBaseExercise Deletes a base exercise
+// DeleteBaseExercise Delete BaseExercise by id, logical delete
 func DeleteBaseExercise(c *gin.Context) {
-	prueba := baseExerciseModel.DeleteBaseExercise()
-	fmt.Println(prueba)
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	service.DeleteBaseExercise(id)
+
+	c.String(200, c.Param("id"))
 }
