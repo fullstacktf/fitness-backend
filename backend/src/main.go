@@ -8,6 +8,7 @@ import (
 	"github.com/fullstacktf/fitness-backend/config"
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/routes"
+	"github.com/fullstacktf/fitness-backend/service"
 	s "github.com/fullstacktf/fitness-backend/storage"
 
 	"gorm.io/driver/mysql"
@@ -55,10 +56,10 @@ func main() {
 		log.Fatal("error al crear tablas de la base de datos:", err)
 	}
 
-	model.PopulatePermissions()
-	model.PopulateRoles()
+	service.PopulatePermissions()
+	service.PopulateRoles()
 
-	model.AssociatePermissions()
+	service.AssociatePermissions()
 
 	routes.SetupRouter().Run()
 }
