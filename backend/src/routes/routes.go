@@ -109,7 +109,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/baseRoutine/:id", controller.GetBaseRoutine)
 
-		v1.GET("/baseRoutine/", controller.GetBaseRoutines)
+		v1.GET("/baseRoutines/", controller.GetBaseRoutines)
 
 		v1.PUT("baseRoutine/", controller.UpdateBaseRoutine)
 

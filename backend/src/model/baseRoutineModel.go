@@ -16,28 +16,3 @@ type BaseRoutine struct {
 func (br *BaseRoutine) TableName() string {
 	return "base_routines"
 }
-
-// CreateBaseRoutine Creates a base routine
-func (br *BaseRoutine) CreateBaseRoutine() string {
-	return "Create a Base Routine"
-}
-
-// GetBaseRoutine Gets a base routine
-func (br *BaseRoutine) GetBaseRoutine() string {
-	return "Get a BaseRoutine"
-}
-
-// GetBaseRoutines Gets all base routine
-func (br *BaseRoutine) GetBaseRoutines() string {
-	return "Get all BaseExercises"
-}
-
-// UpdateBaseRoutine Updates a base routine
-func (br *BaseRoutine) UpdateBaseRoutine() string {
-	return "Update a Base Routine"
-}
-
-// DeleteBaseRoutine Deletes a base routine
-func (br *BaseRoutine) DeleteBaseRoutine() string {
-	return "Delete a Base Routine"
-}
