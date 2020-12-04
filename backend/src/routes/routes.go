@@ -121,7 +121,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/routineCategory/:id", controller.GetRoutineCategory)
 
-		v1.GET("/routineCategory/", controller.GetRoutineCategories)
+		v1.GET("/routineCategories/", controller.GetRoutineCategories)
 
 		v1.PUT("routineCategory/", controller.UpdateRoutineCategory)
 
