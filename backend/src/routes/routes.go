@@ -133,7 +133,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/muscle/:id", controller.GetMuscle)
 
-		v1.GET("/muscle/", controller.GetMuscles)
+		v1.GET("/muscles/", controller.GetMuscles)
 
 		v1.PUT("muscle/", controller.UpdateMuscle)
 
