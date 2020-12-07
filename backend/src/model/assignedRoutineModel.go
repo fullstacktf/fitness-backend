@@ -17,28 +17,3 @@ type AssignedRoutine struct {
 func (ar *AssignedRoutine) TableName() string {
 	return "assigned_routines"
 }
-
-// CreateAssignedRoutine Create a new assigned routine for a user
-func (ar *AssignedRoutine) CreateAssignedRoutine() string {
-	return "CreateAssignedRoutine"
-}
-
-// GetAssignedRoutine Gets an assigned routine of a user
-func (ar *AssignedRoutine) GetAssignedRoutine() string {
-	return "GetAssignedRoutine"
-}
-
-// GetAssignedRoutines Get all assigned routines of a user
-func (ar *AssignedRoutine) GetAssignedRoutines() string {
-	return "GetAssignedRoutines"
-}
-
-// UpdateAssignedRoutine Update specific assigned routine
-func (ar *AssignedRoutine) UpdateAssignedRoutine() string {
-	return "UpdateAssignedRoutine"
-}
-
-// DeleteAssignedRoutine Delete assigned routine by id
-func (ar *AssignedRoutine) DeleteAssignedRoutine() string {
-	return "DeleteAssignedRoutine"
-}
