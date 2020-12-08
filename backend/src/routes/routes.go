@@ -59,7 +59,7 @@ func SetupRouter() *gin.Engine {
 
 		// Routine specific exercises. Used to store specific exercises defined within a custom routine.
 
-		v1.POST("/routineSpecificExercises/", controller.CreateRoutineSpecificExercise)
+		v1.POST("/routineSpecificExercises/:assignedRoutineID", controller.CreateSpecificExercise)
 
 		v1.GET("/routineSpecificExercises/:id", controller.GetSpecificExercises)
 
