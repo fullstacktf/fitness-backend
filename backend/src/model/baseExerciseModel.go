@@ -9,8 +9,8 @@ type BaseExercise struct {
 	Description        string           `gorm:"column:description;type:varchar(60)"`
 	VideoURL           string           `gorm:"column:video_url;type:varchar(50)"`
 	CategoryID         uint64           `gorm:"column:category_id;type:bigint(20) unsigned"`
-	DefaultSeries      uint             `gorm:"column:default_series;type:tinyint unsigned"`
-	DefaultRepetitions uint             `gorm:"column:default_repetitions;type:tinyint unsigned"`
+	DefaultSeries      uint8            `gorm:"column:default_series;type:tinyint unsigned"`
+	DefaultRepetitions uint8            `gorm:"column:default_repetitions;type:tinyint unsigned"`
 	ExerciseCategory   ExerciseCategory `gorm:"foreignKey:CategoryID;"`
 	Muscles            []*Muscle        `gorm:"many2many:exercises_muscles;"`
 }

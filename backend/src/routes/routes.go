@@ -41,7 +41,7 @@ func SetupRouter() *gin.Engine {
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 
-		v1.POST("/assignedRoutine/", controller.CreateAssignedRoutine)
+		v1.POST("/assignRoutine/", controller.AssignRoutineToUser)
 
 		v1.GET("/assignedRoutine/:id", controller.GetAssignedRoutine)
 
@@ -61,11 +61,11 @@ func SetupRouter() *gin.Engine {
 
 		v1.POST("/routineSpecificExercises/", controller.CreateRoutineSpecificExercise)
 
-		v1.GET("/routineSpecificExercises/:id", controller.GetRoutineSpecificExercise)
+		v1.GET("/routineSpecificExercises/:id", controller.GetSpecificExercises)
 
-		v1.PUT("/routineSpecificExercises/:id", controller.UpdateRoutineSpecificExercise)
+		v1.PUT("/routineSpecificExercises/", controller.UpdateSpecificExercise)
 
-		v1.DELETE("/routineSpecificExercises/:id", controller.DeleteRoutineSpecificExercise)
+		v1.DELETE("/routineSpecificExercises/:id", controller.DeleteSpecificExercise)
 
 		//Permissions
 

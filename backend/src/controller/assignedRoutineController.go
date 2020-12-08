@@ -11,12 +11,12 @@ import (
 
 var assignedRoutineModel model.AssignedRoutine
 
-// CreateAssignedRoutine Assigns a routine with it's exercises to the user
-func CreateAssignedRoutine(c *gin.Context) {
+// AssignRoutineToUser Creates an assigned routine for the specified user, importing all exercises from base exercises
+func AssignRoutineToUser(c *gin.Context) {
 	assignedRoutineModel := model.AssignedRoutine{}
 	c.BindJSON(&assignedRoutineModel)
 
-	err := service.CreateAssignedRoutine(assignedRoutineModel)
+	err := service.AssignRoutineToUser(assignedRoutineModel)
 
 	if err != nil {
 		error := service.GetGormErrorCode(err.Error())

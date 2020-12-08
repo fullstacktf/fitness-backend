@@ -18,6 +18,8 @@ func GetBaseRoutine(id int) *model.BaseRoutine {
 	baseRoutine := model.BaseRoutine{}
 	storage.DB.Find(&baseRoutine, id)
 
+	baseRoutine.GetBaseRoutineAssociations()
+
 	return &baseRoutine
 }
 
@@ -26,11 +28,17 @@ func GetBaseRoutines(filter model.BaseRoutine) *[]model.BaseRoutine {
 	baseRoutines := []model.BaseRoutine{}
 	storage.DB.Where(&filter).Find(&baseRoutines)
 
+	for i := 0; i < len(baseRoutines); i++ {
+		baseRoutines[i].GetBaseRoutineAssociations()
+	}
+
 	return &baseRoutines
 }
 
 // UpdateBaseRoutine Update specific base routine using id param in URL
 func UpdateBaseRoutine(updatedBaseRoutine model.BaseRoutine) error {
+
+	storage.DB.Model(&updatedBaseRoutine).Association("BaseExercises").Replace(updatedBaseRoutine.BaseExercises)
 
 	output := storage.DB.Save(&updatedBaseRoutine)
 

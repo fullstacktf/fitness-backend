@@ -5,11 +5,27 @@ import (
 	"github.com/fullstacktf/fitness-backend/storage"
 )
 
-// CreateAssignedRoutine Assigns a routine with it's exercises to the user
-func CreateAssignedRoutine(data model.AssignedRoutine) error {
-	output := storage.DB.Create(&data)
+// AssignRoutineToUser Creates an assigned routine for the specified user, importing all exercises from base exercises
+func AssignRoutineToUser(data model.AssignedRoutine) error {
 
-	return output.Error
+	baseRoutine := GetBaseRoutine(int(data.BaseRoutineID))
+
+	newAssignedRoutine := model.AssignedRoutine{}
+	newAssignedRoutine.UserID = uint64(data.UserID)
+	newAssignedRoutine.Name = data.Name
+	newAssignedRoutine.BaseRoutineID = data.BaseRoutineID
+
+	outputCreate := storage.DB.Create(&newAssignedRoutine)
+
+	if outputCreate.Error != nil {
+
+		return outputCreate.Error
+	}
+
+	baseExercises := baseRoutine.BaseExercises
+
+	return CreateSpecificExercisesFromBase(baseExercises, uint64(newAssignedRoutine.ID))
+
 }
 
 // GetAssignedRoutine Get GetAssignedRoutine by id
