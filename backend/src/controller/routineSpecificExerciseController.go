@@ -2,34 +2,76 @@ package controller
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
 	"github.com/fullstacktf/fitness-backend/model"
+	"github.com/fullstacktf/fitness-backend/service"
 )
 
-var routineSpecificExerciseModel model.RoutineSpecificExercise
+// CreateSpecificExercise Creates a routine specific exercise for the user
+func CreateSpecificExercise(c *gin.Context) {
+	baseExercise := model.BaseExercise{}
+	assignedRoutineID, _ := strconv.Atoi(c.Param("assignedRoutineID"))
+	c.BindJSON(&assignedRoutineModel)
 
-// CreateRoutineSpecificExercise Creates a routine specific exercise
-func CreateRoutineSpecificExercise(c *gin.Context) {
-	prueba := routineSpecificExerciseModel.CreateRoutineSpecificExercise()
-	fmt.Println(prueba)
+	err := service.CreateSpecificExerciseFromBase(baseExercise, uint64(assignedRoutineID))
+
+	if err != nil {
+		error := service.GetGormErrorCode(err.Error())
+		c.JSON(500, error)
+	} else {
+		c.String(200, "ok")
+	}
 }
 
-// GetRoutineSpecificExercise Gets a routine specific exercise
-func GetRoutineSpecificExercise(c *gin.Context) {
-	prueba := routineSpecificExerciseModel.GetRoutineSpecificExercise()
-	fmt.Println(prueba)
+// GetSpecificExercise Returns a routine specific exercise
+func GetSpecificExercise(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	result := service.GetSpecificExercise(id)
+
+	if result.ID == 0 {
+		c.JSON(404, "Exercise not found")
+	} else {
+		c.JSON(200, result)
+	}
 }
 
-// UpdateRoutineSpecificExercise Updates a routine specific exercises
-func UpdateRoutineSpecificExercise(c *gin.Context) {
-	prueba := routineSpecificExerciseModel.UpdateRoutineSpecificExercise()
-	fmt.Println(prueba)
+// GetSpecificExercises Get all non deleted routine specific exercises and by using a filter
+func GetSpecificExercises(c *gin.Context) {
+	filter := model.RoutineSpecificExercise{}
+	reqErr := c.BindJSON(&filter)
+
+	if reqErr == nil {
+		result := service.GetSpecificExercises(filter)
+		c.JSON(200, result)
+	}
 }
 
-// DeleteRoutineSpecificExercise Deletes a routine specific exercise
-func DeleteRoutineSpecificExercise(c *gin.Context) {
-	prueba := routineSpecificExerciseModel.DeleteRoutineSpecificExercise()
-	fmt.Println(prueba)
+// UpdateSpecificExercise Update specific category using id param in URL
+func UpdateSpecificExercise(c *gin.Context) {
+
+	updatedExercise := model.RoutineSpecificExercise{}
+	c.BindJSON(&updatedExercise)
+
+	err := service.UpdateSpecificExercise(updatedExercise)
+	if err != nil {
+		fmt.Println(err.Error())
+		error := service.GetGormErrorCode(err.Error())
+
+		c.JSON(500, error)
+	} else {
+		c.String(200, "ok")
+	}
+}
+
+// DeleteSpecificExercise Delete routine specific exercise by id, logical delete
+func DeleteSpecificExercise(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	service.DeleteSpecificExercise(id)
+
+	c.String(200, c.Param("id"))
+
 }
