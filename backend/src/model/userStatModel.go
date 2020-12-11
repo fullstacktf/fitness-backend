@@ -16,8 +16,3 @@ type UserStat struct {
 func (u *UserStat) TableName() string {
 	return "user_stats"
 }
-
-// UpdateUserStat Updates the user stats
-func (u *UserStat) UpdateUserStat() string {
-	return "UpdateUserStat"
-}
