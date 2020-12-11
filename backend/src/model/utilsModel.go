@@ -5,3 +5,9 @@ type ErrorVO struct {
 	Code    int
 	Message string
 }
+
+// Pagedrequest Model for paged requests
+type Pagedrequest struct {
+	Size   int
+	Offset int
+}

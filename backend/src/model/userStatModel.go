@@ -4,7 +4,7 @@ import "time"
 
 // UserStat model
 type UserStat struct {
-	UserID       uint64    `gorm:"column:user_id;type:bigint(20) unsigned"`
+	UserID       uint64    `gorm:"column:user_id;type:bigint(20) unsigned;unique"`
 	LastWeight   float32   `gorm:"column:last_weight;type:float unsigned"`
 	Height       float32   `gorm:"column:height;type:float unsigned"`
 	InjuredSince time.Time `gorm:"column:injured_since;type:date"`
