@@ -77,3 +77,12 @@ func SendRegistrationMail(to string, pass string) {
 
 	SendMail(dest, message)
 }
+
+// SendResetPasswordMail Sends an email with a new auto-generated password
+func SendResetPasswordMail(to string, pass string) {
+	dest := make([]string, 1)
+	dest[0] = to
+	message := fmt.Sprintf(constants.ResetPasswordMessage, pass)
+
+	SendMail(dest, message)
+}
