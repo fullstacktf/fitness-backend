@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/fullstacktf/fitness-backend/constants"
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
@@ -9,6 +10,20 @@ import (
 func CreateUser(data model.User) error {
 
 	output := storage.DB.Create(&data)
+
+	userStats := model.UserStat{}
+	userStats.UserID = uint64(data.ID)
+	userStats.Height = 0
+	userStats.LastWeight = 0
+
+	storage.DB.Create(&userStats)
+
+	userPass := model.UserPass{}
+	userPass.Password = GenerateRandomPassword(10, constants.PasswordCharset)
+
+	storage.DB.Create(&userPass)
+
+	SendRegistrationMail(data.Email, userPass.Password)
 
 	return output.Error
 }

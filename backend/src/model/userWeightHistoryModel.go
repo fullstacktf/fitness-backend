@@ -19,13 +19,3 @@ type UserWeightHistory struct {
 func (uwh *UserWeightHistory) TableName() string {
 	return "user_weight_history"
 }
-
-// CreateUserWeightHistory Creates a new weight history data point
-func (uwh *UserWeightHistory) CreateUserWeightHistory() string {
-	return "CreateUserWeightHistory"
-}
-
-// UpdateUserWeightHistory Updates an existing weight history data point
-func (uwh *UserWeightHistory) UpdateUserWeightHistory() string {
-	return "UpdateUserWeightHistory"
-}

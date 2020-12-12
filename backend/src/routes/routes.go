@@ -31,13 +31,15 @@ func SetupRouter() *gin.Engine {
 
 		// User stats
 
-		v1.PUT("/userStat/:userId", controller.UpdateUserStat)
+		v1.GET("/userStat/:userId", controller.GetUserStat)
+
+		v1.PUT("/userStat/:userId", controller.UpdateUserStats)
 
 		// User weight history
 
-		v1.POST("/userWeight/:userId", controller.CreateUserWeightHistory)
+		v1.POST("/userWeight/:userId", controller.CreateUserWeightHistoryPoint)
 
-		v1.PUT("/userWeight/:userId", controller.UpdateUserWeightHistory)
+		v1.GET("/userWeight/:userId", controller.GetWeightHistoryPoints)
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 
