@@ -20,6 +20,7 @@ func CreateUser(data model.User) error {
 
 	userPass := model.UserPass{}
 	userPass.Password = GenerateRandomPassword(10, constants.PasswordCharset)
+	userPass.UserID = uint64(data.ID)
 
 	storage.DB.Create(&userPass)
 

@@ -27,7 +27,7 @@ func SetupRouter() *gin.Engine {
 
 		// Paswords. Only accesible to admins
 
-		v1.PUT("/password/:userId", controller.UpdateUserPass)
+		v1.PUT("/resetPassword/:userId", controller.ResetUserPass)
 
 		// User stats
 

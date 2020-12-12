@@ -21,6 +21,8 @@ var (
 
 	// RegistrationMessage Registration/Welcome message with parameters
 	RegistrationMessage string
+	// ResetPasswordMessage Reset password message with parameters
+	ResetPasswordMessage string
 	// PasswordCharset Charset for the password generation
 	PasswordCharset string
 )
@@ -34,6 +36,7 @@ func init() {
 	DatabasePassword = os.Getenv("DATABASE_PASSWORD")
 	DatabasePort, _ = strconv.Atoi(os.Getenv("DATABASE_PORT"))
 
-	RegistrationMessage = "Bienvenido a youlift.xyz! %s,\nEstás a nada de disfrutar de una vida más activa y saludable!\nAccede a nuestra página https://www.youlift.xyz/ e inicia sesión con la contraseña indicada a continuación.\nContraseña: %s\n"
+	RegistrationMessage = "Bienvenido a YouLift! %s,\n\nEstás a nada de disfrutar de una vida más activa y saludable!\n\nAccede a nuestra página https://www.youlift.xyz/ e inicia sesión con la contraseña indicada a continuación.\n\nContraseña: %s"
+	ResetPasswordMessage = "Tu nueva contraseña en youlift.xyz\n\n%s"
 	PasswordCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 }
