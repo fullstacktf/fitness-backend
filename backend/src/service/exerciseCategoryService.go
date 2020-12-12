@@ -22,9 +22,9 @@ func GetExerciseCategory(id int) *model.ExerciseCategory {
 }
 
 // GetExerciseCategories Get all non deleted categories and by using a filter
-func GetExerciseCategories(filter model.ExerciseCategory) *[]model.ExerciseCategory {
+func GetExerciseCategories() *[]model.ExerciseCategory {
 	categories := []model.ExerciseCategory{}
-	storage.DB.Where(&filter).Find(&categories)
+	storage.DB.Find(&categories)
 
 	return &categories
 }

@@ -22,9 +22,9 @@ func GetMuscle(id int) *model.Muscle {
 }
 
 // GetMuscles Get all non deleted muscles and by using a filter
-func GetMuscles(filter model.Muscle) *[]model.Muscle {
+func GetMuscles() *[]model.Muscle {
 	muscles := []model.Muscle{}
-	storage.DB.Where(&filter).Find(&muscles)
+	storage.DB.Find(&muscles)
 
 	return &muscles
 }

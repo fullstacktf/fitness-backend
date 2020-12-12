@@ -22,9 +22,9 @@ func GetRoutineCategory(id int) *model.RoutineCategory {
 }
 
 // GetRoutineCategories Get all non deleted categories and by using a filter
-func GetRoutineCategories(filter model.RoutineCategory) *[]model.RoutineCategory {
+func GetRoutineCategories() *[]model.RoutineCategory {
 	categories := []model.RoutineCategory{}
-	storage.DB.Where(&filter).Find(&categories)
+	storage.DB.Find(&categories)
 
 	return &categories
 }
