@@ -42,7 +42,7 @@ Route: user/
 
 Request body:
 
-```JSON
+```
 {
   "DNI": String,
   "Name": String,
@@ -69,7 +69,7 @@ Also, the create, update and get filtered need a request body as specified.
 
 The filtering of the "Get filtered" call can be done with any of the fields of the request body, for example, we would filter users with the admin role performing a GET request to user/ with this request body:
 
-```JSON
+```
 {
   "UserRole": 1
 }
@@ -89,7 +89,7 @@ Route: ```user/```
 
 Request body:
 
-```JSON
+```
 {
   "DNI": String,
   "Name": String,
@@ -110,7 +110,7 @@ Route: ```assignedRoutine/```
 
 Request body:
 
-```JSON
+```
 {
   "UserID": Int,
   "Name": String,
@@ -127,7 +127,7 @@ Route: ```routineSpecificExercises/```
 
 Request body:
 
-```JSON
+```
 { 
   "BaseExercisesID": Int,
   "AssignedRoutinesID": Int,
@@ -145,7 +145,7 @@ The create method requires only the "BaseExercisesID" and "AssignedRoutinesID" f
 Route: ```permission/```
 
 Request body:
-```JSON
+```
 { 
     "Description": String
 }
@@ -159,7 +159,7 @@ Route: ```role/```
 
 Request body:
 
-```JSON
+```
 { 
     "Description": String,
     "Permissions": []Permissions
@@ -174,7 +174,7 @@ Route: ```baseExercise/```
 
 Request body:
 
-```JSON
+```
 {
   "Name": String,
   "Description": String,
@@ -194,7 +194,7 @@ Route: ```baseRoutine/```
 
 Request body:
 
-```JSON
+```
 {
   "CategoryID": Int,
   "Name": String,
@@ -211,7 +211,7 @@ Route: ```routineCategory/```
 
 Request body:
 
-```JSON
+```
 {
     "Name": String
 }
@@ -223,7 +223,7 @@ Route: ```exerciseCategory/```
 
 Request body:
 
-```JSON
+```
 {
     "Name": String
 }
@@ -235,7 +235,7 @@ Route: ```muscle/```
 
 Request body:
 
-```JSON
+```
 {
     "Name": String
 }
@@ -268,7 +268,7 @@ This call gets a paged lsit of the user's weight history.
 Route: ```userWeight/:userId```
 
 Request body: 
-```JSON
+```
 {
 	"Size": Int,
 	"Offset": Int
@@ -277,7 +277,7 @@ Request body:
 
 Return body:
 
-```JSON
+```
 [
   {
     "ID": Int,
@@ -295,7 +295,7 @@ This call adds a new weight history point to the specified user.
 Route: ```userWeight/:userId```
 
 Request body:
-```JSON
+```
   {
     "Weight": Float,
     "Date": String,
@@ -311,7 +311,7 @@ Route ```history/:userId```
 
 Request body:
 
-```JSON
+```
 {
   "Measure": float,
   "MeasureUnit": String 's' | 'kg' | 'ms',
