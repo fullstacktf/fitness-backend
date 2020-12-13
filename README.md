@@ -305,7 +305,7 @@ Request body:
 
 #### **Exercise history**
 
-This two calls create and return the exercises history of a specific user (GET & POST).
+These two calls create and return the exercises history of a specific user (GET & POST).
 
 Route ```history/:userId```
 
