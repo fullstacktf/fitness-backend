@@ -1,29 +1,46 @@
 package routes
 
 import (
+	"net/http"
+	"strings"
+
 	"github.com/fullstacktf/fitness-backend/controller"
+	"github.com/fullstacktf/fitness-backend/service"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	userkey = "user"
+)
+
 // SetupRouter Function to initialize and configure gin-gonic
 func SetupRouter() *gin.Engine {
+
 	r := gin.Default()
+	store := cookie.NewStore([]byte("secret"))
+	r.Use(sessions.Sessions("mysession", store))
+
+	r.POST("/login", login)
+	r.GET("/logout", logout)
 	v1 := r.Group("/v1")
 	{
+
 		v1.GET("/", controller.GetWelcome)
 
+		user := v1.Group("/user").Use(AuthRequired)
 		// Users
+		user.POST("/", controller.CreateUser).Use(checkPermission("CREATE_USERS"))
 
-		v1.POST("/user/", controller.CreateUser)
+		user.GET("/:id", controller.GetUser).Use(checkPermission("READ_USERS"))
 
-		v1.GET("/user/:id", controller.GetUser)
+		user.GET("/", controller.GetUsers).Use(checkPermission("READ_USERS"))
 
-		v1.GET("/user/", controller.GetUsers)
+		user.PUT("/", controller.UpdateUser).Use(checkPermission("UPDATE_USERS"))
 
-		v1.PUT("/user/", controller.UpdateUser)
-
-		v1.DELETE("/user/:id", controller.DeleteUser)
+		user.DELETE("/:id", controller.DeleteUser).Use(checkPermission("DELETE_USERS"))
 
 		// Paswords. Only accesible to admins
 
@@ -157,4 +174,59 @@ func SetupRouter() *gin.Engine {
 	}
 
 	return r
+}
+
+// AuthRequired is a simple middleware to check the session
+func AuthRequired(c *gin.Context) {
+	session := sessions.Default(c)
+	user := session.Get(userkey)
+	if user == nil {
+		// Abort the request with the appropriate error code
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return
+	}
+	// Continue down the chain to handler etc
+	c.Next()
+}
+
+// Login is a handler that parses a form and checks for specific data
+func login(c *gin.Context) {
+	session := sessions.Default(c)
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	if strings.Trim(username, " ") == "" || strings.Trim(password, " ") == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Parameters can't be empty"})
+		return
+	}
+
+	login, userID := service.CheckLogin(username, password)
+	if !login {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
+		return
+	}
+
+	session.Set(userkey, userID)
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully authenticated user"})
+}
+
+// Logout logouts
+func logout(c *gin.Context) {
+	session := sessions.Default(c)
+	user := session.Get(userkey)
+
+	if user == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid session token"})
+		return
+	}
+	session.Delete(userkey)
+	if err := session.Save(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 }
