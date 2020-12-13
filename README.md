@@ -18,8 +18,7 @@
         - [**Special calls**](#special-calls)
         - [**Reset password**](#reset-password)
         - [**User stats**](#user-stats)
-        - [**Get user weight history**](#get-user-weight-history)
-        - [**Add user weight history point**](#add-user-weight-history-point)
+        - [**User weight history**](#user-weight-history)
         - [**Exercise history**](#exercise-history)
 
 <!-- /TOC -->
@@ -261,8 +260,23 @@ Route: ```userStat/:userId```
 Request body: none
 
 
-#### **Get user weight history**
+#### **User weight history**
 
+**POST**
+This call adds a new weight history point to the specified user.
+
+Route: ```userWeight/:userId```
+
+Request body:
+```
+  {
+    "Weight": Float,
+    "Date": String,
+    "UserID": Int
+  }
+```
+
+**GET**
 This call gets a paged lsit of the user's weight history.
 
 Route: ```userWeight/:userId```
@@ -288,26 +302,12 @@ Return body:
   ...
 ]
 ```
-#### **Add user weight history point**
-
-This call adds a new weight history point to the specified user.
-
-Route: ```userWeight/:userId```
-
-Request body:
-```
-  {
-    "Weight": Float,
-    "Date": String,
-    "UserID": Int
-  }
-```
-
 #### **Exercise history**
 
-These two calls create and return the exercises history of a specific user (GET & POST).
+**POST**
+This call creates a history point of the routine specific exercise indicated in the request body
 
-Route ```history/:userId```
+Route ```history/```
 
 Request body:
 
@@ -316,6 +316,31 @@ Request body:
   "Measure": float,
   "MeasureUnit": String 's' | 'kg' | 'ms',
   "MeasureType": String 'weight' | 'exerciseMetric',
+  "Date": String,
+  "RoutineSpecificExercisesID": Int
+}
+```
+
+**GET**
+This call gets a paged list of the history points of a specific exercise
+
+Route ```history/:specExerciseId```
+
+Request body:
+
+```
+{
+	"Size": Int,
+	"Offset": Int
+}	
+```
+
+Return body:
+```
+{
+  "Measure": Int,
+  "MeasureUnit": String,
+  "MeasureType": String,
   "Date": String,
   "RoutineSpecificExercisesID": Int
 }
