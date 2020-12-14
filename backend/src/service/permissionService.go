@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 
+	"github.com/fullstacktf/fitness-backend/constants"
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
@@ -48,185 +49,205 @@ func DeletePermission(id uint8) error {
 // PopulatePermissions Function to populate the Permission model
 func PopulatePermissions() {
 	createRolesPermission := model.Permission{
-		Description: "CREATE_ROLES",
+		Description: string(constants.CREATE_ROLES),
 	}
 
 	readRolesPermission := model.Permission{
-		Description: "READ_ROLES",
+		Description: string(constants.READ_ROLES),
 	}
 
 	updateRolesPermission := model.Permission{
-		Description: "UPDATE_ROLES",
+		Description: string(constants.UPDATE_ROLES),
 	}
 
 	deleteRolesPermission := model.Permission{
-		Description: "DELETE_ROLES",
+		Description: string(constants.DELETE_ROLES),
 	}
 
 	// permissions table
 
 	createPermissionsPermission := model.Permission{
-		Description: "CREATE_PERMISSIONS",
+		Description: string(constants.CREATE_PERMISSIONS),
 	}
 
 	readPermissionsPermission := model.Permission{
-		Description: "READ_PERMISSIONS",
+		Description: string(constants.READ_PERMISSIONS),
 	}
 
 	updatePermissionsPermission := model.Permission{
-		Description: "UPDATE_PERMISSIONS",
+		Description: string(constants.UPDATE_PERMISSIONS),
 	}
 
 	deletePermissionsPermission := model.Permission{
-		Description: "DELETE_PERMISSIONS",
+		Description: string(constants.DELETE_PERMISSIONS),
 	}
 
 	createUsersPermission := model.Permission{
-		Description: "CREATE_USERS",
+		Description: string(constants.CREATE_USERS),
 	}
 
 	readUsersPermission := model.Permission{
-		Description: "READ_USERS",
+		Description: string(constants.READ_USERS),
 	}
 
 	updateUsersPermission := model.Permission{
-		Description: "UPDATE_USERS",
+		Description: string(constants.UPDATE_USERS),
 	}
 
 	deleteUsersPermission := model.Permission{
-		Description: "DELETE_USERS",
+		Description: string(constants.DELETE_USERS),
 	}
 
 	updatePasswordPermission := model.Permission{
-		Description: "UPDATE_PASSWORD",
+		Description: string(constants.UPDATE_PASSWORD),
 	}
 
 	createRoutinesPermission := model.Permission{
-		Description: "CREATE_ROUTINES",
+		Description: string(constants.CREATE_ROUTINES),
 	}
 
 	readRoutinesPermission := model.Permission{
-		Description: "READ_ROUTINES",
+		Description: string(constants.READ_ROUTINES),
 	}
 
 	updateRoutinesPermission := model.Permission{
-		Description: "UPDATE_ROUTINES",
+		Description: string(constants.UPDATE_ROUTINES),
 	}
 
 	deleteRoutinesPermission := model.Permission{
-		Description: "DELETE_ROUTINES",
+		Description: string(constants.DELETE_ROUTINES),
 	}
 
 	createRoutineCategoriesPermission := model.Permission{
-		Description: "CREATE_ROUTINE_CATEGORIES",
+		Description: string(constants.CREATE_ROUTINE_CATEGORIES),
 	}
 
 	readRoutineCategoriesPermission := model.Permission{
-		Description: "READ_ROUTINE_CATEGORIES",
+		Description: string(constants.READ_ROUTINE_CATEGORIES),
 	}
 
 	updateRoutineCategoriesPermission := model.Permission{
-		Description: "UPDATE_ROUTINE_CATEGORIES",
+		Description: string(constants.UPDATE_ROUTINE_CATEGORIES),
 	}
 
 	deleteRoutineCategoriesPermission := model.Permission{
-		Description: "DELETE_ROUTINE_CATEGORIES",
+		Description: string(constants.DELETE_ROUTINE_CATEGORIES),
 	}
 
 	createRoutinesUserPermission := model.Permission{
-		Description: "CREATE_ROUTINES_USER",
+		Description: string(constants.CREATE_ROUTINES_USER),
 	}
 
 	readRoutinesUserPermission := model.Permission{
-		Description: "READ_ROUTINES_USER",
+		Description: string(constants.READ_ROUTINES_USER),
 	}
 
 	updateRoutinesUserPermission := model.Permission{
-		Description: "UPDATE_ROUTINES_USER",
+		Description: string(constants.UPDATE_ROUTINES_USER),
 	}
 
 	deleteRoutinesUserPermission := model.Permission{
-		Description: "DELETE_ROUTINES_USER",
+		Description: string(constants.DELETE_ROUTINES_USER),
 	}
 
 	createExercisesPermission := model.Permission{
-		Description: "CREATE_EXERCISES",
+		Description: string(constants.CREATE_EXERCISES),
 	}
 
 	readExercisesPermission := model.Permission{
-		Description: "READ_EXERCISES",
+		Description: string(constants.READ_EXERCISES),
 	}
 
 	updateExercisesPermission := model.Permission{
-		Description: "UPDATE_EXERCISES",
+		Description: string(constants.UPDATE_EXERCISES),
 	}
 
 	deleteExercisesPermission := model.Permission{
-		Description: "DELETE_EXERCISES",
+		Description: string(constants.DELETE_EXERCISES),
 	}
 
 	createRoutinesExercisesPermission := model.Permission{
-		Description: "CREATE_ROUTINES_EXERCISES",
+		Description: string(constants.CREATE_ROUTINES_EXERCISES),
 	}
 
 	readRoutinesExercisesPermission := model.Permission{
-		Description: "READ_ROUTINES_EXERCISES",
+		Description: string(constants.READ_ROUTINES_EXERCISES),
 	}
 
 	updateRoutinesExercisesPermission := model.Permission{
-		Description: "UPDATE_ROUTINES_EXERCISES",
+		Description: string(constants.UPDATE_ROUTINES_EXERCISES),
 	}
 
 	deleteRoutinesExercisesPermission := model.Permission{
-		Description: "DELETE_ROUTINES_EXERCISES",
+		Description: string(constants.DELETE_ROUTINES_EXERCISES),
 	}
 
 	createExerciseCategoryPermission := model.Permission{
-		Description: "CREATE_EXERCISE_CATEGORY",
+		Description: string(constants.CREATE_EXERCISE_CATEGORY),
 	}
 
 	readExerciseCategoryPermission := model.Permission{
-		Description: "READ_EXERCISE_CATEGORY",
+		Description: string(constants.READ_EXERCISE_CATEGORY),
 	}
 
 	updateExerciseCategoryPermission := model.Permission{
-		Description: "UPDATE_EXERCISE_CATEGORY",
+		Description: string(constants.UPDATE_EXERCISE_CATEGORY),
 	}
 
 	deleteExerciseCategoryPermission := model.Permission{
-		Description: "DELETE_EXERCISE_CATEGORY",
+		Description: string(constants.DELETE_EXERCISE_CATEGORY),
 	}
 
 	createMusclesPermission := model.Permission{
-		Description: "CREATE_MUSCLES",
+		Description: string(constants.CREATE_MUSCLES),
 	}
 
 	readMusclesPermission := model.Permission{
-		Description: "READ_MUSCLES",
+		Description: string(constants.READ_MUSCLES),
 	}
 
 	updateMusclesPermission := model.Permission{
-		Description: "UPDATE_MUSCLES",
+		Description: string(constants.UPDATE_MUSCLES),
 	}
 
 	deleteMusclesPermission := model.Permission{
-		Description: "DELETE_MUSCLES",
+		Description: string(constants.DELETE_MUSCLES),
 	}
 
 	createBaseRoutinesPermission := model.Permission{
-		Description: "CREATE_BASE_ROUTINES",
+		Description: string(constants.CREATE_BASE_ROUTINES),
 	}
 
 	readBaseRoutinesPermission := model.Permission{
-		Description: "READ_BASE_ROUTINES",
+		Description: string(constants.READ_BASE_ROUTINES),
 	}
 
 	updateBaseRoutinesPermission := model.Permission{
-		Description: "UPDATE_BASE_ROUTINES",
+		Description: string(constants.UPDATE_BASE_ROUTINES),
 	}
 
 	deleteBaseRoutinesPermission := model.Permission{
-		Description: "DELETE_BASE_ROUTINES",
+		Description: string(constants.DELETE_BASE_ROUTINES),
+	}
+
+	updateUserStatsPermission := model.Permission{
+		Description: string(constants.UPDATE_USER_STATS),
+	}
+
+	createBaseExercisePermission := model.Permission{
+		Description: string(constants.CREATE_BASE_EXERCISES),
+	}
+
+	readBaseExercisePermission := model.Permission{
+		Description: string(constants.READ_BASE_EXERCISES),
+	}
+
+	updateBaseExercisePermission := model.Permission{
+		Description: string(constants.UPDATE_BASE_EXERCISES),
+	}
+
+	deleteBaseExercisePermission := model.Permission{
+		Description: string(constants.DELETE_BASE_EXERCISES),
 	}
 
 	permissions := []model.Permission{
@@ -275,6 +296,11 @@ func PopulatePermissions() {
 		readBaseRoutinesPermission,
 		updateBaseRoutinesPermission,
 		deleteBaseRoutinesPermission,
+		updateUserStatsPermission,
+		createBaseExercisePermission,
+		readBaseExercisePermission,
+		updateBaseExercisePermission,
+		deleteBaseExercisePermission,
 	}
 
 	storage.DB.Create(&permissions)

@@ -128,6 +128,11 @@ func AssociatePermissions() {
 		GetPermission(43),
 		GetPermission(44),
 		GetPermission(45),
+		GetPermission(46),
+		GetPermission(47),
+		GetPermission(48),
+		GetPermission(49),
+		GetPermission(50),
 	}
 
 	trainerPermissions := []*model.Permission{
@@ -168,6 +173,11 @@ func AssociatePermissions() {
 		GetPermission(43),
 		GetPermission(44),
 		GetPermission(45),
+		GetPermission(46),
+		GetPermission(47),
+		GetPermission(48),
+		GetPermission(49),
+		GetPermission(50),
 	}
 
 	userPermissions := []*model.Permission{

@@ -13,7 +13,16 @@ var historyModel model.History
 // CreateHistory Create a new history point
 func CreateHistory(c *gin.Context) {
 	newHistoryPoint := model.History{}
+	userID, _ := strconv.Atoi(c.Param("userId"))
 	bodyErr := c.BindJSON(&newHistoryPoint)
+
+	specificExercise := service.GetSpecificExercise(int(newHistoryPoint.RoutineSpecificExercisesID))
+	assignedRoutine := service.GetAssignedRoutine(int(specificExercise.AssignedRoutinesID))
+
+	if uint64(userID) != assignedRoutine.UserID {
+		c.String(400, "Bad request")
+		return
+	}
 
 	err := service.CreateHistory(newHistoryPoint)
 

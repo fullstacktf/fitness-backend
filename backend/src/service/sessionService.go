@@ -46,3 +46,20 @@ func CheckPermission(permission string, userID uint) bool {
 	return false
 
 }
+
+// CheckRole Checks if a user has the specified role
+func CheckRole(role string, userID uint) bool {
+	user := model.User{}
+	userRole := model.Role{}
+
+	storage.DB.Find(&user, userID)
+	storage.DB.Model(&user).Association("Role").Find(&userRole)
+
+	if userRole.Description == role {
+		return true
+
+	}
+
+	return false
+
+}

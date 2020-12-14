@@ -38,6 +38,22 @@ func GetAssignedRoutine(c *gin.Context) {
 	}
 }
 
+// GetAssignedRoutineByUserID Get AssignedRoutine by user id
+func GetAssignedRoutineByUserID(c *gin.Context) {
+	userID, _ := strconv.Atoi(c.Param("userId"))
+	filter := model.AssignedRoutine{}
+	filter.ID = uint(userID)
+	resultSet := service.GetAssignedRoutines(filter)
+
+	result := (*resultSet)[0]
+
+	if result.ID == 0 {
+		c.JSON(404, "Assigned routine not found")
+	} else {
+		c.JSON(200, result)
+	}
+}
+
 // GetAssignedRoutines Get assigned routines with filtering
 func GetAssignedRoutines(c *gin.Context) {
 	filter := model.AssignedRoutine{}
