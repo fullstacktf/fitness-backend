@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/fullstacktf/fitness-backend/constants"
 	"github.com/fullstacktf/fitness-backend/controller"
@@ -10,6 +11,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,6 +25,14 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+		AllowHeaders:     []string{"Origin", "Content-type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	r.POST("/login", login)
 	r.GET("/logout", logout)
