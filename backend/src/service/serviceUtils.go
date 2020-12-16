@@ -47,9 +47,9 @@ func GenerateRandomPassword(length int, charset string) string {
 
 // SendMail Sends an email
 func SendMail(to []string, content string) {
-
-	from := "supp.youlift.xyz@gmail.com"
-	password := "YbrxEqh0Uhee9pQL27sN"
+	// Sender data.
+	from := constants.EmailSender
+	password := constants.EmailPassword
 
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"

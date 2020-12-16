@@ -78,3 +78,23 @@ func DeleteUser(c *gin.Context) {
 	c.String(200, c.Param("id"))
 
 }
+
+// RegisterUser Creates a new user
+func RegisterUser(c *gin.Context) {
+	newUser := model.User{}
+	bodyErr := c.BindJSON(&newUser)
+
+	newUser.UserRole = 3
+
+	err := service.CreateUser(newUser)
+
+	if bodyErr == nil {
+		if err != nil {
+			error := service.GetGormErrorCode(err.Error())
+
+			c.JSON(500, error)
+		} else {
+			c.String(200, "ok")
+		}
+	}
+}

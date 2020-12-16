@@ -25,6 +25,11 @@ var (
 	ResetPasswordMessage string
 	// PasswordCharset Charset for the password generation
 	PasswordCharset string
+
+	// EmailSender Email account for automated emails
+	EmailSender string
+	// EmailPassword Automated emails account's password
+	EmailPassword string
 )
 
 func init() {
@@ -39,4 +44,7 @@ func init() {
 	RegistrationMessage = "Bienvenido a YouLift! %s,\n\nEstás a nada de disfrutar de una vida más activa y saludable!\n\nAccede a nuestra página https://www.youlift.xyz/ e inicia sesión con la contraseña indicada a continuación.\n\nContraseña: %s"
 	ResetPasswordMessage = "Tu nueva contraseña en youlift.xyz\n\n%s"
 	PasswordCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+	EmailSender = os.Getenv("EMAIL_SENDER")
+	EmailPassword = os.Getenv("EMAIL_PASSWORD")
 }

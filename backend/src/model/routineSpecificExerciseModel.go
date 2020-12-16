@@ -17,23 +17,3 @@ type RoutineSpecificExercise struct {
 func (r *RoutineSpecificExercise) TableName() string {
 	return "routine_specific_exercises"
 }
-
-// CreateRoutineSpecificExercise Create an instance of a routine specific exercise
-func (r *RoutineSpecificExercise) CreateRoutineSpecificExercise() string {
-	return "CreateRoutineSpecificExercise"
-}
-
-// GetRoutineSpecificExercise Get a routine specific exercise
-func (r *RoutineSpecificExercise) GetRoutineSpecificExercise() string {
-	return "GetRoutineSpecificExercise"
-}
-
-// UpdateRoutineSpecificExercise Update a routine specific exercise
-func (r *RoutineSpecificExercise) UpdateRoutineSpecificExercise() string {
-	return "UpdateRoutineSpecificExercise"
-}
-
-// DeleteRoutineSpecificExercise Deletes a routine specific exercise
-func (r *RoutineSpecificExercise) DeleteRoutineSpecificExercise() string {
-	return "DeleteRoutineSpecificExercise"
-}
