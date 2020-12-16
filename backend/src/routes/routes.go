@@ -37,6 +37,11 @@ func SetupRouter() *gin.Engine {
 	r.POST("/login", login)
 	r.GET("/logout", logout)
 
+	session := r.Group("/session")
+	{
+		session.GET("/", getSessionID).Use(AuthRequired)
+	}
+
 	r.POST("/register", controller.RegisterUser)
 	v1 := r.Group("/v1")
 	{
@@ -246,4 +251,9 @@ func logout(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
+}
+
+func getSessionID(c *gin.Context) {
+	session := sessions.Default(c)
+	c.JSON(http.StatusOK, session.Get(userkey))
 }
