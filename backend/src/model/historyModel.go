@@ -21,13 +21,3 @@ type History struct {
 func (h *History) TableName() string {
 	return "history"
 }
-
-// CreateHistory Create a new history point
-func (h *History) CreateHistory() string {
-	return "CreateHistory"
-}
-
-// UpdateHistory Updates an existing history point
-func (h *History) UpdateHistory() string {
-	return "UpdateHistory"
-}

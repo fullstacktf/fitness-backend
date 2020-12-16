@@ -57,7 +57,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.POST("/history/", controller.CreateHistory)
 
-		v1.GET("/history/:userId", controller.UpdateHistory)
+		v1.GET("/history/:specExerciseId", controller.GetHistoryPoints)
 
 		// Routine specific exercises. Used to store specific exercises defined within a custom routine.
 

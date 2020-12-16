@@ -18,7 +18,7 @@ func GetWeightHistoryPoints(data model.Pagedrequest, userID int) *[]model.UserWe
 
 	historyPoints := []model.UserWeightHistory{}
 
-	storage.DB.Where("user_id = ?", userID).Limit(data.Size).Offset(data.Size * data.Offset).Order("date desc").Find(&historyPoints)
+	storage.DB.Where("user_id = ?", userID).Order("date desc").Limit(data.Size).Offset(data.Size * data.Offset).Find(&historyPoints)
 
 	return &historyPoints
 
