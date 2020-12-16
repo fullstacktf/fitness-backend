@@ -15,15 +15,15 @@ func SetupRouter() *gin.Engine {
 
 		// Users
 
-		v1.POST("/users/", controller.CreateUser)
+		v1.POST("/user/", controller.CreateUser)
 
 		v1.GET("/user/:id", controller.GetUser)
 
-		v1.GET("/users/", controller.GetUsers)
+		v1.GET("/user/", controller.GetUsers)
 
-		v1.PUT("/users/", controller.UpdateUser)
+		v1.PUT("/user/", controller.UpdateUser)
 
-		v1.DELETE("/users/:id", controller.DeleteUser)
+		v1.DELETE("/user/:id", controller.DeleteUser)
 
 		// Paswords. Only accesible to admins
 
@@ -43,11 +43,11 @@ func SetupRouter() *gin.Engine {
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 
-		v1.POST("/assignRoutine/", controller.AssignRoutineToUser)
+		v1.POST("/assignedRoutine/", controller.AssignRoutineToUser)
 
 		v1.GET("/assignedRoutine/:id", controller.GetAssignedRoutine)
 
-		v1.GET("/assignedRoutines/", controller.GetAssignedRoutines)
+		v1.GET("/assignedRoutine/", controller.GetAssignedRoutines)
 
 		v1.PUT("/assignedRoutine/", controller.UpdateAssignedRoutine)
 
@@ -57,13 +57,15 @@ func SetupRouter() *gin.Engine {
 
 		v1.POST("/history/", controller.CreateHistory)
 
-		v1.PUT("/history/:id", controller.UpdateHistory)
+		v1.GET("/history/:userId", controller.UpdateHistory)
 
 		// Routine specific exercises. Used to store specific exercises defined within a custom routine.
 
-		v1.POST("/routineSpecificExercises/:assignedRoutineID", controller.CreateSpecificExercise)
+		v1.POST("/routineSpecificExercises/", controller.CreateSpecificExercise)
 
-		v1.GET("/routineSpecificExercises/:id", controller.GetSpecificExercises)
+		v1.GET("/routineSpecificExercises/:id", controller.GetSpecificExercise)
+
+		v1.GET("/routineSpecificExercises/", controller.GetSpecificExercises)
 
 		v1.PUT("/routineSpecificExercises/", controller.UpdateSpecificExercise)
 
@@ -75,7 +77,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/permission/:id", controller.GetPermission)
 
-		v1.GET("/permissions/", controller.GetPermissions)
+		v1.GET("/permission/", controller.GetPermissions)
 
 		v1.PUT("/permission/", controller.UpdatePermission)
 
@@ -87,7 +89,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/role/:id", controller.GetRole)
 
-		v1.GET("/roles/", controller.GetRoles)
+		v1.GET("/role/", controller.GetRoles)
 
 		v1.PUT("role/", controller.UpdateRole)
 
@@ -99,7 +101,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/baseExercise/:id", controller.GetBaseExercise)
 
-		v1.GET("/baseExercises/", controller.GetBaseExercises)
+		v1.GET("/baseExercise/", controller.GetBaseExercises)
 
 		v1.PUT("/baseExercise/", controller.UpdateBaseExercise)
 
@@ -111,7 +113,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/baseRoutine/:id", controller.GetBaseRoutine)
 
-		v1.GET("/baseRoutines/", controller.GetBaseRoutines)
+		v1.GET("/baseRoutine/", controller.GetBaseRoutines)
 
 		v1.PUT("baseRoutine/", controller.UpdateBaseRoutine)
 
@@ -123,7 +125,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/routineCategory/:id", controller.GetRoutineCategory)
 
-		v1.GET("/routineCategories/", controller.GetRoutineCategories)
+		v1.GET("/routineCategory/", controller.GetRoutineCategories)
 
 		v1.PUT("routineCategory/", controller.UpdateRoutineCategory)
 
@@ -147,7 +149,7 @@ func SetupRouter() *gin.Engine {
 
 		v1.GET("/muscle/:id", controller.GetMuscle)
 
-		v1.GET("/muscles/", controller.GetMuscles)
+		v1.GET("/muscle/", controller.GetMuscles)
 
 		v1.PUT("muscle/", controller.UpdateMuscle)
 

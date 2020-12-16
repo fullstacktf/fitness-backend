@@ -43,11 +43,11 @@ func GetRoutineCategory(c *gin.Context) {
 
 // GetRoutineCategories Get all non deleted categories and by using a filter
 func GetRoutineCategories(c *gin.Context) {
-	filter := model.RoutineCategory{}
-	reqErr := c.BindJSON(&filter)
+	result := service.GetRoutineCategories()
 
-	if reqErr == nil {
-		result := service.GetRoutineCategories(filter)
+	if len(*result) == 0 {
+		c.JSON(404, nil)
+	} else {
 		c.JSON(200, result)
 	}
 }

@@ -12,11 +12,10 @@ import (
 
 // CreateSpecificExercise Creates a routine specific exercise for the user
 func CreateSpecificExercise(c *gin.Context) {
-	baseExercise := model.BaseExercise{}
-	assignedRoutineID, _ := strconv.Atoi(c.Param("assignedRoutineID"))
-	c.BindJSON(&assignedRoutineModel)
+	newExercise := model.RoutineSpecificExercise{}
+	c.BindJSON(&newExercise)
 
-	err := service.CreateSpecificExerciseFromBase(baseExercise, uint64(assignedRoutineID))
+	err := service.CreateSpecificExerciseFromBase(newExercise)
 
 	if err != nil {
 		error := service.GetGormErrorCode(err.Error())

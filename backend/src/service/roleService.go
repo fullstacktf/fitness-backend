@@ -17,6 +17,13 @@ func CreateRole(data model.Role) error {
 func GetRole(id uint8) *model.Role {
 	role := model.Role{}
 	storage.DB.Find(&role, id)
+
+	permissions := []*model.Permission{}
+
+	storage.DB.Model(&role).Association("Permissions").Find(&permissions)
+
+	role.Permissions = permissions
+
 	return &role
 }
 

@@ -43,11 +43,11 @@ func GetExerciseCategory(c *gin.Context) {
 
 // GetExerciseCategories Get all non deleted categories and by using a filter
 func GetExerciseCategories(c *gin.Context) {
-	filter := model.ExerciseCategory{}
-	reqErr := c.BindJSON(&filter)
+	result := service.GetExerciseCategories()
 
-	if reqErr == nil {
-		result := service.GetExerciseCategories(filter)
+	if len(*result) == 0 {
+		c.JSON(404, nil)
+	} else {
 		c.JSON(200, result)
 	}
 }

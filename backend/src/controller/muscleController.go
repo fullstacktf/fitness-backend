@@ -43,11 +43,11 @@ func GetMuscle(c *gin.Context) {
 
 // GetMuscles Get all non deleted Muscles and by using a filter
 func GetMuscles(c *gin.Context) {
-	filter := model.Muscle{}
-	reqErr := c.BindJSON(&filter)
+	result := service.GetMuscles()
 
-	if reqErr == nil {
-		result := service.GetMuscles(filter)
+	if len(*result) == 0 {
+		c.JSON(404, nil)
+	} else {
 		c.JSON(200, result)
 	}
 }
