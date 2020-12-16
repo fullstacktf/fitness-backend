@@ -26,7 +26,7 @@ func SetupRouter() *gin.Engine {
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"http://localhost:3000", "https://youlift.xyz", "http://youlift.xyz"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Content-type"},
 		ExposeHeaders:    []string{"Content-Length"},
@@ -226,6 +226,7 @@ func login(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully authenticated user"})
 }
 
@@ -243,5 +244,6 @@ func logout(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 }
