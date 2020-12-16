@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/fullstacktf/fitness-backend/constants"
 	"github.com/fullstacktf/fitness-backend/controller"
@@ -10,6 +11,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,6 +25,14 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000", "https://youlift.xyz", "http://youlift.xyz"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+		AllowHeaders:     []string{"Origin", "Content-type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	r.POST("/login", login)
 	r.GET("/logout", logout)
@@ -216,6 +226,7 @@ func login(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully authenticated user"})
 }
 
@@ -233,5 +244,6 @@ func logout(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{"message": "Successfully logged out"})
 }
