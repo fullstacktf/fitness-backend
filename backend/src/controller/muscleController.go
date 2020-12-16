@@ -2,39 +2,79 @@ package controller
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/fullstacktf/fitness-backend/model"
+	"github.com/fullstacktf/fitness-backend/service"
 	"github.com/gin-gonic/gin"
 )
 
 var muscleModel model.Muscle
 
-// CreateMuscle Create a muscle group
+// CreateMuscle Create a new Muscle with specified data in body
 func CreateMuscle(c *gin.Context) {
-	prueba := muscleModel.CreateMuscle()
-	fmt.Println(prueba)
+	newMuscle := model.Muscle{}
+	bodyErr := c.BindJSON(&newMuscle)
+
+	err := service.CreateMuscle(newMuscle)
+
+	if bodyErr == nil {
+		if err != nil {
+			error := service.GetGormErrorCode(err.Error())
+
+			c.JSON(500, error)
+		} else {
+			c.String(200, "ok")
+		}
+	}
 }
 
-// GetMuscle gets a muscle group
+// GetMuscle Get muscle by id
 func GetMuscle(c *gin.Context) {
-	prueba := muscleModel.GetMuscle()
-	fmt.Println(prueba)
+	id, _ := strconv.Atoi(c.Param("id"))
+	result := service.GetMuscle(id)
+
+	if result.ID == 0 {
+		c.JSON(404, "Muscle not found")
+	} else {
+		c.JSON(200, result)
+	}
 }
 
-// GetMuscles gets all muscle groups
+// GetMuscles Get all non deleted Muscles and by using a filter
 func GetMuscles(c *gin.Context) {
-	prueba := muscleModel.GetMuscles()
-	fmt.Println(prueba)
+	result := service.GetMuscles()
+
+	if len(*result) == 0 {
+		c.JSON(404, nil)
+	} else {
+		c.JSON(200, result)
+	}
 }
 
-// UpdateMuscle Updates a muscle group
+// UpdateMuscle Update specific Muscle using id param in URL
 func UpdateMuscle(c *gin.Context) {
-	prueba := muscleModel.UpdateMuscle()
-	fmt.Println(prueba)
+
+	updatedMuscle := model.Muscle{}
+	c.BindJSON(&updatedMuscle)
+
+	err := service.UpdateMuscle(updatedMuscle)
+	if err != nil {
+		fmt.Println(err.Error())
+		error := service.GetGormErrorCode(err.Error())
+
+		c.JSON(500, error)
+	} else {
+		c.String(200, "ok")
+	}
 }
 
-// DeleteMuscle Deletes a muscle group
+// DeleteMuscle Delete Muscle by id, logical delete
 func DeleteMuscle(c *gin.Context) {
-	prueba := muscleModel.DeleteMuscle()
-	fmt.Println(prueba)
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	service.DeleteMuscle(id)
+
+	c.String(200, c.Param("id"))
+
 }

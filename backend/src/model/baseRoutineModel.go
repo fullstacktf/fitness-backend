@@ -1,41 +1,31 @@
 package model
 
+import (
+	"github.com/fullstacktf/fitness-backend/storage"
+	"gorm.io/gorm"
+)
+
 // BaseRoutine model
 type BaseRoutine struct {
-	ID              uint8           `gorm:"column:id;type:mediumint unsigned;autoIncrement;primaryKey"`
-	CategoryID      uint8           `gorm:"column:category_id;type:mediumint unsigned"`
+	gorm.Model
+	CategoryID      uint64          `gorm:"column:category_id;type:bigint(20) unsigned"`
 	Name            string          `gorm:"column:name;type:varchar(15)"`
 	Description     string          `gorm:"column:description;type:varchar(30)"`
-	RoutineCategory RoutineCategory `gorm:"foreignKey:CategoryID;references:ID"`
+	RoutineCategory RoutineCategory `gorm:"foreignKey:CategoryID;"`
 	BaseExercises   []*BaseExercise `gorm:"many2many:base_routines_base_exercises"`
 }
 
 // TableName Function to change the name of a table.
 func (br *BaseRoutine) TableName() string {
-	return "base_exercises"
+	return "base_routines"
 }
 
-// CreateBaseRoutine Creates a base routine
-func (br *BaseRoutine) CreateBaseRoutine() string {
-	return "Create a Base Routine"
-}
+func (br *BaseRoutine) GetBaseRoutineAssociations() {
+	baseExercises := []*BaseExercise{}
+	storage.DB.Model(&br).Association("BaseExercises").Find(&baseExercises)
+	br.BaseExercises = baseExercises
 
-// GetBaseRoutine Gets a base routine
-func (br *BaseRoutine) GetBaseRoutine() string {
-	return "Get a BaseRoutine"
-}
-
-// GetBaseRoutines Gets all base routine
-func (br *BaseRoutine) GetBaseRoutines() string {
-	return "Get all BaseExercises"
-}
-
-// UpdateBaseRoutine Updates a base routine
-func (br *BaseRoutine) UpdateBaseRoutine() string {
-	return "Update a Base Routine"
-}
-
-// DeleteBaseRoutine Deletes a base routine
-func (br *BaseRoutine) DeleteBaseRoutine() string {
-	return "Delete a Base Routine"
+	routineCategory := RoutineCategory{}
+	storage.DB.Model(&br).Association("RoutineCategory").Find(&routineCategory)
+	br.RoutineCategory = routineCategory
 }
