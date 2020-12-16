@@ -47,22 +47,17 @@ func GenerateRandomPassword(length int, charset string) string {
 
 // SendMail Sends an email
 func SendMail(to []string, content string) {
-
 	// Sender data.
 	from := constants.EmailSender
 	password := constants.EmailPassword
 
-	// smtp server configuration.
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
 
-	// Message.
 	message := []byte(content)
 
-	// Authentication.
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
-	// Sending email.
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
 	if err != nil {
 		return
