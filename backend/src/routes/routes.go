@@ -24,7 +24,7 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
-	store.Options(sessions.Options{Domain: constants.DomainProduction})
+	store.Options(sessions.Options{Domain: constants.DomainDevelopment})
 	r.Use(sessions.Sessions("mysession", store))
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000", "https://youlift.xyz", "http://youlift.xyz"},
@@ -38,9 +38,9 @@ func SetupRouter() *gin.Engine {
 	r.POST("/login", login)
 	r.GET("/logout", logout)
 
-	session := r.Group("/session")
+	session := r.Group("/session").Use(AuthRequired)
 	{
-		session.GET("/", getSessionID).Use(AuthRequired)
+		session.GET("/", getSessionID)
 	}
 
 	r.POST("/register", controller.RegisterUser)
