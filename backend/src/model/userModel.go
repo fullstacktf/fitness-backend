@@ -15,6 +15,7 @@ type User struct {
 	Phone     string    `gorm:"column:phone;type:varchar(20)"`
 	BirthDate time.Time `gorm:"column:birth_date;type:date"`
 	Address   string    `gorm:"column:address;type:varchar(100)"`
+	Biography string    `gorm:"column:biography;type:varchar(200)"`
 	UserRole  uint64    `gorm:"column:user_role;type:bigint(20) unsigned;"`
 	Role      Role      `gorm:"foreignKey:UserRole;"`
 }

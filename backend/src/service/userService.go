@@ -72,6 +72,7 @@ func PopulateUser() {
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
 		Address:   "calle ejemplo",
+		Biography: "Example biography",
 		UserRole:  3,
 	}
 
@@ -82,6 +83,7 @@ func PopulateUser() {
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
 		Address:   "calle ejemplo",
+		Biography: "Example biography",
 		UserRole:  1,
 	}
 
@@ -92,6 +94,7 @@ func PopulateUser() {
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
 		Address:   "calle ejemplo",
+		Biography: "Example biography",
 		UserRole:  1,
 	}
 
