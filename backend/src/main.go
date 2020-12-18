@@ -57,7 +57,6 @@ func main() {
 		log.Fatal("error al crear tablas de la base de datos:", err)
 	}
 
-	fmt.Println()
 
 	if !service.CheckPopulated() {
 
