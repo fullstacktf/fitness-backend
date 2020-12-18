@@ -40,10 +40,9 @@ func DeletePermission(id uint8) error {
 
 	if permission.ID == 0 {
 		return errors.New("Not Found")
-	} else {
-		result := storage.DB.Delete(&permission)
-		return result.Error
 	}
+	result := storage.DB.Delete(&permission)
+	return result.Error
 }
 
 // CheckPopulated Checks if the database has been poopulated with the basic default data
