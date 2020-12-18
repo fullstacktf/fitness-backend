@@ -78,7 +78,7 @@ func SetupRouter() *gin.Engine {
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 		assignedRoutine := v1.Group("/assignedRoutine").Use(AuthRequired)
-		assignedRoutine.GET("/:id/byUser/:userId", controller.GetAssignedRoutineByUserID).Use(checkOwnActionOrPerm("userId", constants.READ_ROUTINES))
+		assignedRoutine.GET("/:id/byUser/:userId", controller.GetAssignedRoutinesByUserID).Use(checkOwnActionOrPerm("userId", constants.READ_ROUTINES))
 
 		assignedRoutine.GET("/:id", controller.GetAssignedRoutine).Use(checkPermission(constants.READ_ROUTINES))
 
