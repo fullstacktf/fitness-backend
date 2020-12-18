@@ -10,8 +10,7 @@ import (
 type User struct {
 	gorm.Model
 	DNI       string    `gorm:"column:dni;type:char(9)"`
-	Name      string    `gorm:"column:name;type:varchar(50)"`
-	Surname   string    `gorm:"column:surname;type:varchar(100)"`
+	Name      string    `gorm:"column:name;type:varchar(100)"`
 	Email     string    `gorm:"column:email;type:varchar(50);unique;"`
 	Phone     string    `gorm:"column:phone;type:varchar(20)"`
 	BirthDate time.Time `gorm:"column:birth_date;type:date"`

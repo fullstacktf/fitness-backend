@@ -13,7 +13,13 @@ var userWeightHistoryModel model.UserWeightHistory
 // CreateUserWeightHistoryPoint Creates a new weight history data point
 func CreateUserWeightHistoryPoint(c *gin.Context) {
 	newWeightPoint := model.UserWeightHistory{}
+	userID, _ := strconv.Atoi(c.Param("userId"))
 	bodyErr := c.BindJSON(&newWeightPoint)
+
+	if uint64(userID) != newWeightPoint.UserID {
+		c.String(400, "Bad request")
+		return
+	}
 
 	err := service.CreateUserWeightHistoryPoint(newWeightPoint)
 
