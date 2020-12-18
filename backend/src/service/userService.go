@@ -68,7 +68,6 @@ func PopulateUser() {
 	user := model.User{
 		DNI:       "01234567A",
 		Name:      "usuarioEjemplo",
-		Surname:   "usuarioEjemplo",
 		Email:     "usuarioEjemplo@youlift.xyz",
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
@@ -79,7 +78,6 @@ func PopulateUser() {
 	admin := model.User{
 		DNI:       "01234567B",
 		Name:      "adminEjemplo",
-		Surname:   "adminEjemplo",
 		Email:     "adminEjemplo@youlift.xyz",
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
@@ -90,7 +88,6 @@ func PopulateUser() {
 	trainer := model.User{
 		DNI:       "01234567C",
 		Name:      "entrenadorEjemplo",
-		Surname:   "entrenadorEjemplo",
 		Email:     "entrenadorEjemplo@youlift.xyz",
 		Phone:     "",
 		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
