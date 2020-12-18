@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -56,10 +57,24 @@ func main() {
 		log.Fatal("error al crear tablas de la base de datos:", err)
 	}
 
-	service.PopulatePermissions()
-	service.PopulateRoles()
+	fmt.Println()
 
-	service.AssociatePermissions()
+	if !service.CheckPopulated() {
+
+		service.PopulatePermissions()
+		service.PopulateRoles()
+
+		service.PopulateMuscles()
+		service.PopulateExerciseCategory()
+		service.PopulateRoutineCategory()
+
+		service.PopulateBaseExercise()
+		service.PopulateBaseRoutine()
+
+		service.AssociatePermissions()
+
+		service.PopulateUser()
+	}
 
 	routes.SetupRouter().Run()
 }
