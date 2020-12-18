@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
@@ -18,7 +16,7 @@ func AssignRoutineToUser(data model.AssignedRoutine) error {
 	newAssignedRoutine.BaseRoutineID = data.BaseRoutineID
 
 	outputCreate := storage.DB.Create(&newAssignedRoutine)
-	fmt.Println(outputCreate.Error)
+
 	if outputCreate.Error != nil {
 
 		return outputCreate.Error
