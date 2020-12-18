@@ -52,3 +52,20 @@ func DeleteBaseRoutine(id int) {
 	storage.DB.Delete(&deletedBaseRoutine)
 
 }
+
+// PopulateBaseRoutine populates base routine element with basic data
+func PopulateBaseRoutine() {
+
+	exercises := make([]*model.BaseExercise, 1)
+	exercises[0] = GetBaseExercise(1)
+
+	fuerza := model.BaseRoutine{
+		Name:          "Fuerza",
+		Description:   "Rutina ejemplo de fuerza",
+		BaseExercises: exercises,
+		CategoryID:    1,
+	}
+
+	storage.DB.Create(&fuerza)
+
+}

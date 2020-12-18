@@ -44,3 +44,23 @@ func DeleteBaseExercise(id int) {
 	storage.DB.Delete(&deletedBaseExercise)
 
 }
+
+// PopulateBaseExercise populates base exercise element with basic data
+func PopulateBaseExercise() {
+
+	muscles := make([]*model.Muscle, 1)
+	muscles[0] = GetMuscle(9)
+
+	fuerza := model.BaseExercise{
+		Name:               "Plancha",
+		Description:        "Ejercicio clásico de plancha",
+		VideoURL:           "https://www.youtube.com/watch?v=2wRv2J3sufM",
+		DefaultSeries:      1,
+		DefaultRepetitions: 1,
+		CategoryID:         1,
+		Muscles:            muscles,
+	}
+
+	storage.DB.Create(&fuerza)
+
+}
