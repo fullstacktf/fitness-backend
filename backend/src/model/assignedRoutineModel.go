@@ -8,8 +8,8 @@ import (
 type AssignedRoutine struct {
 	gorm.Model
 	UserID        uint64      `gorm:"column:user_id;type:bigint(20) unsigned"`
-	Name          string      `gorm:"column:name;type:varchar(15)"`
-	Description   string      `gorm:"column:description;type:varchar(30)"`
+	Name          string      `gorm:"column:name;type:varchar(20)"`
+	Description   string      `gorm:"column:description;type:varchar(40)"`
 	BaseRoutineID uint64      `gorm:"column:base_routine_id;type:bigint(20) unsigned"`
 	BaseRoutine   BaseRoutine `gorm:"foreignKey:BaseRoutineID;"`
 	User          User        `gorm:"foreignKey:UserID;"`

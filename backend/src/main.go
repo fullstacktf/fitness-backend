@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"time"
@@ -57,7 +56,6 @@ func main() {
 		log.Fatal("error al crear tablas de la base de datos:", err)
 	}
 
-
 	if !service.CheckPopulated() {
 
 		service.PopulatePermissions()
@@ -73,6 +71,9 @@ func main() {
 		service.AssociatePermissions()
 
 		service.PopulateUser()
+		service.PopulateAssignedRoutine()
+
+		service.PopulateWeightHistory()
 	}
 
 	routes.SetupRouter().Run()
