@@ -46,6 +46,17 @@ func DeletePermission(id uint8) error {
 	}
 }
 
+// CheckPopulated Checks if the database has been poopulated with the basic default data
+func CheckPopulated() bool {
+	permission := GetPermission(1)
+
+	if permission.ID == 0 {
+		return false
+	}
+
+	return true
+}
+
 // PopulatePermissions Function to populate the Permission model
 func PopulatePermissions() {
 	createRolesPermission := model.Permission{

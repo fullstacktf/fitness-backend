@@ -30,6 +30,11 @@ var (
 	EmailSender string
 	// EmailPassword Automated emails account's password
 	EmailPassword string
+
+	// DomainDevelopment Domain for development version
+	DomainDevelopment string
+	// DomainProduction Domain for production version
+	DomainProduction string
 )
 
 func init() {
@@ -47,4 +52,8 @@ func init() {
 
 	EmailSender = os.Getenv("EMAIL_SENDER")
 	EmailPassword = os.Getenv("EMAIL_PASSWORD")
+
+	DomainDevelopment = os.Getenv("DOMAIN_DEVELOPMENT")
+	DomainProduction = os.Getenv("DOMAIN_PRODUCTION")
+
 }
