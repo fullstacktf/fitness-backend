@@ -1,6 +1,8 @@
 package service
 
 import (
+	"time"
+
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
@@ -22,4 +24,32 @@ func GetWeightHistoryPoints(data model.Pagedrequest, userID int) *[]model.UserWe
 
 	return &historyPoints
 
+}
+
+// PopulateWeightHistory populates weight history element with basic data
+func PopulateWeightHistory() {
+
+	historyPoints := make([]model.UserWeightHistory, 3)
+
+	historyPointA := model.UserWeightHistory{
+		Weight: 61,
+		UserID: 1,
+		Date:   time.Now().UTC(),
+	}
+
+	historyPointB := model.UserWeightHistory{
+		Weight: 63,
+		UserID: 1,
+		Date:   time.Now().UTC(),
+	}
+
+	historyPointC := model.UserWeightHistory{
+		Weight: 62,
+		UserID: 1,
+		Date:   time.Now().UTC(),
+	}
+
+	historyPoints[0] = historyPointA
+	historyPoints[1] = historyPointB
+	historyPoints[2] = historyPointC
 }

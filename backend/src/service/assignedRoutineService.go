@@ -59,3 +59,16 @@ func DeleteAssignedRoutine(id int) {
 	storage.DB.Delete(&deletedAssignedRoutine)
 
 }
+
+// PopulateAssignedRoutine populates assigned routine element with basic data
+func PopulateAssignedRoutine() {
+
+	routine := model.AssignedRoutine{
+		UserID:        1,
+		Name:          "Rutina de ejemplo",
+		Description:   "Ejemplo descripción",
+		BaseRoutineID: 1,
+	}
+
+	AssignRoutineToUser(routine)
+}
