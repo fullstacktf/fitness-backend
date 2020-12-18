@@ -52,7 +52,7 @@ func SetupRouter() *gin.Engine {
 		// Users
 		user.GET("/:id", controller.GetUser).Use(checkPermission(constants.READ_USERS))
 
-		user.GET("/", controller.GetUsers).Use(checkPermission(constants.READ_USERS))
+		user.POST("s/", controller.GetUsers).Use(checkPermission(constants.READ_USERS))
 
 		user.POST("/", controller.CreateUser).Use(checkPermission(constants.CREATE_USERS))
 
@@ -74,7 +74,7 @@ func SetupRouter() *gin.Engine {
 		userWeight := v1.Group("/userWeight").Use(AuthRequired)
 		userWeight.POST("/:userId", controller.CreateUserWeightHistoryPoint).Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS))
 
-		userWeight.GET("/:userId", controller.GetWeightHistoryPoints)
+		userWeight.POST("/:userId/points", controller.GetWeightHistoryPoints)
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 		assignedRoutine := v1.Group("/assignedRoutine").Use(AuthRequired)
@@ -82,7 +82,7 @@ func SetupRouter() *gin.Engine {
 
 		assignedRoutine.GET("/:id", controller.GetAssignedRoutine).Use(checkPermission(constants.READ_ROUTINES))
 
-		assignedRoutine.GET("/", controller.GetAssignedRoutines).Use(checkPermission(constants.READ_ROUTINES))
+		assignedRoutine.POST("s/", controller.GetAssignedRoutines).Use(checkPermission(constants.READ_ROUTINES))
 
 		assignedRoutine.POST("/", controller.AssignRoutineToUser).Use(checkPermission(constants.CREATE_ROUTINES))
 
@@ -97,10 +97,10 @@ func SetupRouter() *gin.Engine {
 		history.GET("/:userId/:specExerciseId", controller.GetHistoryPoints)
 
 		// Routine specific exercises. Used to store specific exercises defined within a custom routine.
-		routineSpecificExercises := v1.Group("/routineSpecificExercises").Use(AuthRequired)
+		routineSpecificExercises := v1.Group("/routineSpecificExercise").Use(AuthRequired)
 		routineSpecificExercises.GET("/:id", controller.GetSpecificExercise)
 
-		routineSpecificExercises.GET("/", controller.GetSpecificExercises)
+		routineSpecificExercises.POST("s/", controller.GetSpecificExercises)
 
 		routineSpecificExercises.POST("/", controller.CreateSpecificExercise)
 
@@ -112,7 +112,7 @@ func SetupRouter() *gin.Engine {
 		permission := v1.Group("/permission").Use(AuthRequired)
 		permission.GET("/:id", controller.GetPermission).Use(checkPermission(constants.READ_PERMISSIONS))
 
-		permission.GET("/", controller.GetPermissions).Use(checkPermission(constants.READ_PERMISSIONS))
+		permission.POST("s/", controller.GetPermissions).Use(checkPermission(constants.READ_PERMISSIONS))
 
 		permission.POST("/", controller.CreatePermission).Use(checkPermission(constants.CREATE_PERMISSIONS))
 
@@ -124,7 +124,7 @@ func SetupRouter() *gin.Engine {
 		role := v1.Group("/role").Use(AuthRequired)
 		role.GET("/:id", controller.GetRole).Use(checkPermission(constants.READ_ROLES))
 
-		role.GET("/", controller.GetRoles).Use(checkPermission(constants.READ_ROLES))
+		role.POST("s/", controller.GetRoles).Use(checkPermission(constants.READ_ROLES))
 
 		role.POST("/", controller.CreateRole).Use(checkPermission(constants.CREATE_ROLES))
 
@@ -136,7 +136,7 @@ func SetupRouter() *gin.Engine {
 		baseExercise := v1.Group("/baseExercise").Use(AuthRequired)
 		baseExercise.GET("/:id", controller.GetBaseExercise).Use(checkPermission(constants.READ_BASE_EXERCISES))
 
-		baseExercise.GET("/", controller.GetBaseExercises).Use(checkPermission(constants.READ_BASE_EXERCISES))
+		baseExercise.POST("s/", controller.GetBaseExercises).Use(checkPermission(constants.READ_BASE_EXERCISES))
 
 		baseExercise.POST("/", controller.CreateBaseExercise).Use(checkPermission(constants.CREATE_BASE_EXERCISES))
 
@@ -148,7 +148,7 @@ func SetupRouter() *gin.Engine {
 		baseRoutine := v1.Group("/baseRoutine").Use(AuthRequired)
 		baseRoutine.GET("/:id", controller.GetBaseRoutine).Use(checkPermission(constants.READ_BASE_ROUTINES))
 
-		baseRoutine.GET("/", controller.GetBaseRoutines).Use(checkPermission(constants.READ_BASE_ROUTINES))
+		baseRoutine.POST("s/", controller.GetBaseRoutines).Use(checkPermission(constants.READ_BASE_ROUTINES))
 
 		baseRoutine.POST("/", controller.CreateBaseRoutine).Use(checkPermission(constants.CREATE_BASE_ROUTINES))
 
@@ -160,7 +160,7 @@ func SetupRouter() *gin.Engine {
 		routineCategory := v1.Group("/routineCategory").Use(AuthRequired)
 		routineCategory.GET("/:id", controller.GetRoutineCategory).Use(checkPermission(constants.READ_ROUTINE_CATEGORIES))
 
-		routineCategory.GET("/", controller.GetRoutineCategories).Use(checkPermission(constants.READ_ROUTINE_CATEGORIES))
+		routineCategory.POST("s/", controller.GetRoutineCategories).Use(checkPermission(constants.READ_ROUTINE_CATEGORIES))
 
 		routineCategory.POST("/", controller.CreateRoutineCategory).Use(checkPermission(constants.CREATE_ROUTINE_CATEGORIES))
 
@@ -172,7 +172,7 @@ func SetupRouter() *gin.Engine {
 		exerciseCategory := v1.Group("/exerciseCategory").Use(AuthRequired)
 		exerciseCategory.GET("/:id", controller.GetExerciseCategory).Use(checkPermission(constants.READ_EXERCISE_CATEGORY))
 
-		exerciseCategory.GET("/", controller.GetExerciseCategories).Use(checkPermission(constants.READ_EXERCISE_CATEGORY))
+		exerciseCategory.POST("s/", controller.GetExerciseCategories).Use(checkPermission(constants.READ_EXERCISE_CATEGORY))
 
 		exerciseCategory.POST("/", controller.CreateExerciseCategory).Use(checkPermission(constants.CREATE_EXERCISE_CATEGORY))
 
@@ -184,7 +184,7 @@ func SetupRouter() *gin.Engine {
 		muscle := v1.Group("/muscle").Use(AuthRequired)
 		muscle.GET("/:id", controller.GetMuscle).Use(checkPermission(constants.READ_MUSCLES))
 
-		muscle.GET("/", controller.GetMuscles).Use(checkPermission(constants.READ_MUSCLES))
+		muscle.POST("s/", controller.GetMuscles).Use(checkPermission(constants.READ_MUSCLES))
 
 		muscle.POST("/", controller.CreateMuscle).Use(checkPermission(constants.CREATE_MUSCLES))
 
