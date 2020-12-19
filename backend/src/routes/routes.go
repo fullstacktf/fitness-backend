@@ -150,7 +150,7 @@ func SetupRouter() *gin.Engine {
 		baseRoutine := v1.Group("/baseRoutine").Use(AuthRequired)
 		baseRoutine.Use(checkPermission(constants.READ_BASE_ROUTINES)).GET("/:id", controller.GetBaseRoutine)
 
-		baseRoutine.Use(checkPermission(constants.READ_BASE_ROUTINES)).POST("s/", controller.GetBaseRoutines)
+		baseRoutine.Use(checkPermission(constants.READ_BASE_ROUTINES)).POST("/filter", controller.GetBaseRoutines)
 
 		baseRoutine.Use(checkPermission(constants.CREATE_BASE_ROUTINES)).POST("/", controller.CreateBaseRoutine)
 

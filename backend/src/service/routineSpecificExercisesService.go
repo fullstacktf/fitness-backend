@@ -46,6 +46,10 @@ func GetSpecificExercises(filter model.RoutineSpecificExercise) *[]model.Routine
 	exercises := []model.RoutineSpecificExercise{}
 	storage.DB.Where(&filter).Find(&exercises)
 
+	for i := 0; i < len(exercises); i++ {
+		exercises[i].BaseExercise = *(GetBaseExercise(int(exercises[i].BaseExercisesID)))
+	}
+
 	return &exercises
 }
 
