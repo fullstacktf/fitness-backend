@@ -83,7 +83,7 @@ func SetupRouter() *gin.Engine {
 
 		assignedRoutine.GET("/:id", controller.GetAssignedRoutine)
 
-		assignedRoutine.POST("s/", controller.GetAssignedRoutines)
+		assignedRoutine.POST("/filter", controller.GetAssignedRoutines)
 
 		assignedRoutine.Use(checkPermission(constants.CREATE_ROUTINES)).POST("/", controller.AssignRoutineToUser)
 
@@ -114,7 +114,7 @@ func SetupRouter() *gin.Engine {
 		permission := v1.Group("/permission").Use(AuthRequired)
 		permission.Use(checkPermission(constants.READ_PERMISSIONS)).GET("/:id", controller.GetPermission)
 
-		permission.Use(checkPermission(constants.READ_PERMISSIONS)).POST("s/", controller.GetPermissions)
+		permission.Use(checkPermission(constants.READ_PERMISSIONS)).POST("/filter", controller.GetPermissions)
 
 		permission.Use(checkPermission(constants.CREATE_PERMISSIONS)).POST("/", controller.CreatePermission)
 
@@ -126,7 +126,7 @@ func SetupRouter() *gin.Engine {
 		role := v1.Group("/role").Use(AuthRequired)
 		role.Use(checkPermission(constants.READ_ROLES)).GET("/:id", controller.GetRole)
 
-		role.Use(checkPermission(constants.READ_ROLES)).POST("s/", controller.GetRoles)
+		role.Use(checkPermission(constants.READ_ROLES)).POST("/filter", controller.GetRoles)
 
 		role.Use(checkPermission(constants.CREATE_ROLES)).POST("/", controller.CreateRole)
 
@@ -138,7 +138,7 @@ func SetupRouter() *gin.Engine {
 		baseExercise := v1.Group("/baseExercise").Use(AuthRequired)
 		baseExercise.Use(checkPermission(constants.READ_BASE_EXERCISES)).GET("/:id", controller.GetBaseExercise)
 
-		baseExercise.Use(checkPermission(constants.READ_BASE_EXERCISES)).POST("s/", controller.GetBaseExercises)
+		baseExercise.Use(checkPermission(constants.READ_BASE_EXERCISES)).POST("/filter", controller.GetBaseExercises)
 
 		baseExercise.Use(checkPermission(constants.CREATE_BASE_EXERCISES)).POST("/", controller.CreateBaseExercise)
 
@@ -162,7 +162,7 @@ func SetupRouter() *gin.Engine {
 		routineCategory := v1.Group("/routineCategory").Use(AuthRequired)
 		routineCategory.Use(checkPermission(constants.READ_ROUTINE_CATEGORIES)).GET("/:id", controller.GetRoutineCategory)
 
-		routineCategory.Use(checkPermission(constants.READ_ROUTINE_CATEGORIES)).POST("s/", controller.GetRoutineCategories)
+		routineCategory.Use(checkPermission(constants.READ_ROUTINE_CATEGORIES)).POST("/filter", controller.GetRoutineCategories)
 
 		routineCategory.Use(checkPermission(constants.CREATE_ROUTINE_CATEGORIES)).POST("/", controller.CreateRoutineCategory)
 
@@ -174,7 +174,7 @@ func SetupRouter() *gin.Engine {
 		exerciseCategory := v1.Group("/exerciseCategory").Use(AuthRequired)
 		exerciseCategory.Use(checkPermission(constants.READ_EXERCISE_CATEGORY)).GET("/:id", controller.GetExerciseCategory)
 
-		exerciseCategory.Use(checkPermission(constants.READ_EXERCISE_CATEGORY)).POST("s/", controller.GetExerciseCategories)
+		exerciseCategory.Use(checkPermission(constants.READ_EXERCISE_CATEGORY)).POST("/filter", controller.GetExerciseCategories)
 
 		exerciseCategory.Use(checkPermission(constants.CREATE_EXERCISE_CATEGORY)).POST("/", controller.CreateExerciseCategory)
 
@@ -186,7 +186,7 @@ func SetupRouter() *gin.Engine {
 		muscle := v1.Group("/muscle").Use(AuthRequired)
 		muscle.Use(checkPermission(constants.READ_MUSCLES)).GET("/:id", controller.GetMuscle)
 
-		muscle.Use(checkPermission(constants.READ_MUSCLES)).POST("s/", controller.GetMuscles)
+		muscle.Use(checkPermission(constants.READ_MUSCLES)).POST("/filter", controller.GetMuscles)
 
 		muscle.Use(checkPermission(constants.CREATE_MUSCLES)).POST("/", controller.CreateMuscle)
 
