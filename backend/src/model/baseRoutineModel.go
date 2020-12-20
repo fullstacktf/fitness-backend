@@ -24,6 +24,11 @@ func (br *BaseRoutine) TableName() string {
 func (br *BaseRoutine) GetBaseRoutineAssociations() {
 	baseExercises := []*BaseExercise{}
 	storage.DB.Model(&br).Association("BaseExercises").Find(&baseExercises)
+
+	for i := 0; i < len(baseExercises); i++ {
+		baseExercises[i].GetBaseExerciseAssociations()
+	}
+
 	br.BaseExercises = baseExercises
 
 	routineCategory := RoutineCategory{}
