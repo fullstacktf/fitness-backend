@@ -8,9 +8,9 @@ import (
 // BaseExercise model
 type BaseExercise struct {
 	gorm.Model
-	Name               string           `gorm:"column:name;type:varchar(25)"`
-	Description        string           `gorm:"column:description;type:varchar(60)"`
-	VideoURL           string           `gorm:"column:video_url;type:varchar(50)"`
+	Name               string           `gorm:"column:name;type:varchar(100)"`
+	Description        string           `gorm:"column:description;type:varchar(600)"`
+	VideoURL           string           `gorm:"column:video_url;type:varchar(100)"`
 	CategoryID         uint64           `gorm:"column:category_id;type:bigint(20) unsigned"`
 	DefaultSeries      uint8            `gorm:"column:default_series;type:tinyint unsigned"`
 	DefaultRepetitions uint8            `gorm:"column:default_repetitions;type:tinyint unsigned"`
