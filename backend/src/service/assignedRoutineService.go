@@ -12,7 +12,8 @@ func AssignRoutineToUser(data model.AssignedRoutine) error {
 
 	newAssignedRoutine := model.AssignedRoutine{}
 	newAssignedRoutine.UserID = uint64(data.UserID)
-	newAssignedRoutine.Name = data.Name
+	newAssignedRoutine.Name = baseRoutine.Name
+	newAssignedRoutine.Description = baseRoutine.Description
 	newAssignedRoutine.BaseRoutineID = data.BaseRoutineID
 
 	outputCreate := storage.DB.Create(&newAssignedRoutine)
@@ -62,13 +63,28 @@ func DeleteAssignedRoutine(id int) {
 
 // PopulateAssignedRoutine populates assigned routine element with basic data
 func PopulateAssignedRoutine() {
-
-	routine := model.AssignedRoutine{
+	exampleUser1Routine := model.AssignedRoutine{
 		UserID:        1,
-		Name:          "Rutina de ejemplo",
-		Description:   "Ejemplo descripción",
-		BaseRoutineID: 1,
+		BaseRoutineID: 2,
 	}
 
-	AssignRoutineToUser(routine)
+	exampleUser2Routine := model.AssignedRoutine{
+		UserID:        2,
+		BaseRoutineID: 3,
+	}
+
+	exampleUser3Routine := model.AssignedRoutine{
+		UserID:        3,
+		BaseRoutineID: 2,
+	}
+
+	assignedRoutines := []model.AssignedRoutine{
+		exampleUser1Routine,
+		exampleUser2Routine,
+		exampleUser3Routine,
+	}
+
+	for _, routine := range assignedRoutines {
+		AssignRoutineToUser(routine)
+	}
 }

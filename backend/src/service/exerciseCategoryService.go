@@ -48,27 +48,27 @@ func DeleteExerciseCategory(id int) {
 // PopulateExerciseCategory populates exercise category element with basic data
 func PopulateExerciseCategory() {
 
-	fuerza := model.ExerciseCategory{
-		Name: "Fuerza",
+	strength := model.ExerciseCategory{
+		Name: "Strength",
 	}
 
-	rehab := model.ExerciseCategory{
-		Name: "Rehabilitación",
+	rehabilitation := model.ExerciseCategory{
+		Name: "Rehabilitation",
 	}
 
-	peso := model.ExerciseCategory{
-		Name: "Pérdida de peso",
+	weigthLoss := model.ExerciseCategory{
+		Name: "Weight Loss",
 	}
 
-	mantenimiento := model.ExerciseCategory{
-		Name: "Mantenimiento",
+	maintenance := model.ExerciseCategory{
+		Name: "Maintenance",
 	}
 
 	categories := []model.ExerciseCategory{
-		fuerza,
-		rehab,
-		peso,
-		mantenimiento,
+		strength,
+		rehabilitation,
+		weigthLoss,
+		maintenance,
 	}
 
 	storage.DB.Create(&categories)
