@@ -1,6 +1,9 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"github.com/fullstacktf/fitness-backend/storage"
+	"gorm.io/gorm"
+)
 
 // BaseExercise model
 type BaseExercise struct {
@@ -18,4 +21,15 @@ type BaseExercise struct {
 // TableName Function to change the name of a table.
 func (be *BaseExercise) TableName() string {
 	return "base_exercises"
+}
+
+// GetBaseExerciseAssociations Adds all the object's associations
+func (be *BaseExercise) GetBaseExerciseAssociations() {
+	category := ExerciseCategory{}
+	storage.DB.Model(&be).Association("ExerciseCategory").Find(&category)
+	be.ExerciseCategory = category
+
+	muscles := []*Muscle{}
+	storage.DB.Model(&be).Association("Muscles").Find(&muscles)
+	be.Muscles = muscles
 }

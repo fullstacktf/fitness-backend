@@ -20,6 +20,7 @@ func (br *BaseRoutine) TableName() string {
 	return "base_routines"
 }
 
+// GetBaseRoutineAssociations Adds all the object's associations
 func (br *BaseRoutine) GetBaseRoutineAssociations() {
 	baseExercises := []*BaseExercise{}
 	storage.DB.Model(&br).Association("BaseExercises").Find(&baseExercises)

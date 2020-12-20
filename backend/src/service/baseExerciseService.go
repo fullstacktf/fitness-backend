@@ -18,6 +18,8 @@ func GetBaseExercise(id int) *model.BaseExercise {
 	baseEx := model.BaseExercise{}
 	storage.DB.Find(&baseEx, id)
 
+	baseEx.GetBaseExerciseAssociations()
+
 	return &baseEx
 }
 
@@ -27,7 +29,7 @@ func GetBaseExercises(filter model.BaseExercise) *[]model.BaseExercise {
 	storage.DB.Where(&filter).Find(&baseExs)
 
 	for i := 0; i < len(baseExs); i++ {
-		baseExs[i].ExerciseCategory = *GetExerciseCategory(int(baseExs[i].CategoryID))
+		baseExs[i].GetBaseExerciseAssociations()
 	}
 
 	return &baseExs
