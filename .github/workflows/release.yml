@@ -1,0 +1,33 @@
+name: CI/CD
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Get PRs of the new release
+        id: pulls
+        uses: raulrodrigueztorres/release-pulls-titles@v1.0.0
+        with:
+          repository: ${{ env.GITHUB_REPO }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ### Changes in this release:
+                ${{ steps.pulls.outputs.titles }}
+          draft: false
+          prerelease: false
