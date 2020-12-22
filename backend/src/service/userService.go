@@ -36,6 +36,11 @@ func GetUser(id int) *model.User {
 	user := model.User{}
 	storage.DB.Find(&user, id)
 
+	userRole := model.Role{}
+	storage.DB.Model(&user).Association("Role").Find(&userRole)
+
+	user.Role = userRole
+
 	return &user
 }
 
