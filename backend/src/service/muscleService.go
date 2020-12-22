@@ -44,3 +44,87 @@ func DeleteMuscle(id int) {
 	storage.DB.Delete(&deletedMuscle)
 
 }
+
+// PopulateMuscles populates muscles element with basic data
+func PopulateMuscles() {
+
+	pectoral := model.Muscle{
+		Name: "Pectoral",
+	}
+
+	dorsal := model.Muscle{
+		Name: "Dorsal",
+	}
+
+	quadriceps := model.Muscle{
+		Name: "Quadriceps",
+	}
+
+	biceps := model.Muscle{
+		Name: "Bíceps",
+	}
+
+	triceps := model.Muscle{
+		Name: "Tríceps",
+	}
+
+	shoulders := model.Muscle{
+		Name: "Shoulders",
+	}
+
+	hamstrings := model.Muscle{
+		Name: "Hamstrings",
+	}
+
+	buttocks := model.Muscle{
+		Name: "Buttocks",
+	}
+
+	abs := model.Muscle{
+		Name: "ABS",
+	}
+
+	neck := model.Muscle{
+		Name: "Neck",
+	}
+
+	calf := model.Muscle{
+		Name: "Calf",
+	}
+
+	forearm := model.Muscle{
+		Name: "Forearm",
+	}
+
+	lumbar := model.Muscle{
+		Name: "Lumbar",
+	}
+
+	calves := model.Muscle{
+		Name: "Calves",
+	}
+
+	scapular := model.Muscle{
+		Name: "Scapular Muscles",
+	}
+
+	muscles := []model.Muscle{
+		pectoral,
+		dorsal,
+		quadriceps,
+		biceps,
+		triceps,
+		shoulders,
+		hamstrings,
+		buttocks,
+		abs,
+		neck,
+		calf,
+		forearm,
+		lumbar,
+		calves,
+		scapular,
+	}
+
+	storage.DB.Create(&muscles)
+}

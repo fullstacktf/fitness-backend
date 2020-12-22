@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fmt"
+
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
 )
@@ -12,13 +14,14 @@ func AssignRoutineToUser(data model.AssignedRoutine) error {
 
 	newAssignedRoutine := model.AssignedRoutine{}
 	newAssignedRoutine.UserID = uint64(data.UserID)
-	newAssignedRoutine.Name = data.Name
+	newAssignedRoutine.Name = baseRoutine.Name
+	newAssignedRoutine.Description = baseRoutine.Description
 	newAssignedRoutine.BaseRoutineID = data.BaseRoutineID
 
 	outputCreate := storage.DB.Create(&newAssignedRoutine)
 
 	if outputCreate.Error != nil {
-
+		fmt.Println(outputCreate.Error)
 		return outputCreate.Error
 	}
 
@@ -58,4 +61,32 @@ func DeleteAssignedRoutine(id int) {
 
 	storage.DB.Delete(&deletedAssignedRoutine)
 
+}
+
+// PopulateAssignedRoutine populates assigned routine element with basic data
+func PopulateAssignedRoutine() {
+	exampleUser1Routine := model.AssignedRoutine{
+		UserID:        1,
+		BaseRoutineID: 2,
+	}
+
+	exampleUser2Routine := model.AssignedRoutine{
+		UserID:        2,
+		BaseRoutineID: 3,
+	}
+
+	exampleUser3Routine := model.AssignedRoutine{
+		UserID:        3,
+		BaseRoutineID: 2,
+	}
+
+	assignedRoutines := []model.AssignedRoutine{
+		exampleUser1Routine,
+		exampleUser2Routine,
+		exampleUser3Routine,
+	}
+
+	for _, routine := range assignedRoutines {
+		AssignRoutineToUser(routine)
+	}
 }

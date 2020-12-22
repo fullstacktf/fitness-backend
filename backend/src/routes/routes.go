@@ -24,11 +24,11 @@ func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
-	store.Options(sessions.Options{Domain: constants.DomainProduction})
+	store.Options(sessions.Options{Domain: constants.DomainDevelopment})
 	r.Use(sessions.Sessions("mysession", store))
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000", "https://youlift.xyz", "http://youlift.xyz"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-type"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
@@ -38,9 +38,9 @@ func SetupRouter() *gin.Engine {
 	r.POST("/login", login)
 	r.GET("/logout", logout)
 
-	session := r.Group("/session")
+	session := r.Group("/session").Use(AuthRequired)
 	{
-		session.GET("/", getSessionID).Use(AuthRequired)
+		session.GET("/", getSessionID)
 	}
 
 	r.POST("/register", controller.RegisterUser)
@@ -51,147 +51,148 @@ func SetupRouter() *gin.Engine {
 
 		user := v1.Group("/user").Use(AuthRequired)
 		// Users
-		user.GET("/:id", controller.GetUser).Use(checkPermission(constants.READ_USERS))
+		user.Use(checkOwnActionOrPerm("id", constants.UPDATE_USERS)).PUT("/:id", controller.UpdateUser)
 
-		user.GET("/", controller.GetUsers).Use(checkPermission(constants.READ_USERS))
+		user.Use(checkOwnActionOrPerm("id", constants.READ_USERS)).GET("/:id", controller.GetUser)
 
-		user.POST("/", controller.CreateUser).Use(checkPermission(constants.CREATE_USERS))
+		user.Use(checkPermission(constants.READ_USERS)).Use(checkRole("Admin")).POST("/filter", controller.GetUsers)
 
-		user.PUT("/", controller.UpdateUser).Use(checkPermission(constants.CREATE_USERS))
+		user.Use(checkPermission(constants.CREATE_USERS)).POST("/", controller.CreateUser)
 
-		user.DELETE("/:id", controller.DeleteUser).Use(checkPermission(constants.DELETE_USERS))
+		user.Use(checkPermission(constants.DELETE_USERS)).DELETE("/:id", controller.DeleteUser)
 
 		// Paswords. Only accesible to admins
 		password := v1.Group("/resetPassword").Use(AuthRequired)
-		password.PUT("/:userId", controller.ResetUserPass).Use(checkRole("Admin"))
+		password.Use(checkRole("Admin")).PUT("/:userId", controller.ResetUserPass)
 
 		// User stats
 		userStat := v1.Group("/userStat").Use(AuthRequired)
-		userStat.GET("/:userId", controller.GetUserStat).Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS))
+		userStat.Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS)).GET("/:userId", controller.GetUserStat)
 
 		userStat.PUT("/:userId", controller.UpdateUserStats)
 
 		// User weight history
 		userWeight := v1.Group("/userWeight").Use(AuthRequired)
-		userWeight.POST("/:userId", controller.CreateUserWeightHistoryPoint).Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS))
+		userWeight.Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS)).POST("/:userId", controller.CreateUserWeightHistoryPoint)
 
-		userWeight.GET("/:userId", controller.GetWeightHistoryPoints)
+		userWeight.POST("/:userId/points", controller.GetWeightHistoryPoints)
 
 		// Assigned routines. Used to asign custom routines to users by a trainer
 		assignedRoutine := v1.Group("/assignedRoutine").Use(AuthRequired)
-		assignedRoutine.GET("/:id/byUser/:userId", controller.GetAssignedRoutineByUserID).Use(checkOwnActionOrPerm("userId", constants.READ_ROUTINES))
+		assignedRoutine.Use(checkOwnActionOrPerm("userId", constants.READ_ROUTINES)).GET("/:id/byUser/:userId", controller.GetAssignedRoutinesByUserID)
 
-		assignedRoutine.GET("/:id", controller.GetAssignedRoutine).Use(checkPermission(constants.READ_ROUTINES))
+		assignedRoutine.GET("/:id", controller.GetAssignedRoutine)
 
-		assignedRoutine.GET("/", controller.GetAssignedRoutines).Use(checkPermission(constants.READ_ROUTINES))
+		assignedRoutine.POST("/filter", controller.GetAssignedRoutines)
 
-		assignedRoutine.POST("/", controller.AssignRoutineToUser).Use(checkPermission(constants.CREATE_ROUTINES))
+		assignedRoutine.Use(checkPermission(constants.CREATE_ROUTINES)).POST("/", controller.AssignRoutineToUser)
 
-		assignedRoutine.PUT("/", controller.UpdateAssignedRoutine).Use(checkPermission(constants.UPDATE_ROUTINES))
+		assignedRoutine.Use(checkPermission(constants.UPDATE_ROUTINES)).PUT("/", controller.UpdateAssignedRoutine)
 
-		assignedRoutine.DELETE("/:id", controller.DeleteAssignedRoutine).Use(checkPermission(constants.DELETE_ROUTINES))
+		assignedRoutine.Use(checkPermission(constants.DELETE_ROUTINES)).DELETE("/:id", controller.DeleteAssignedRoutine)
 
 		// History. Update available to the trainer only
 		history := v1.Group("/history").Use(AuthRequired)
-		history.POST("/:userId", controller.CreateHistory).Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS))
+		history.Use(checkOwnActionOrPerm("userId", constants.UPDATE_USER_STATS)).POST("/:userId", controller.CreateHistory)
 
 		history.GET("/:userId/:specExerciseId", controller.GetHistoryPoints)
 
 		// Routine specific exercises. Used to store specific exercises defined within a custom routine.
-		routineSpecificExercises := v1.Group("/routineSpecificExercises").Use(AuthRequired)
-		routineSpecificExercises.GET("/:id", controller.GetSpecificExercise)
+		routineSpecificExercises := v1.Group("/routineSpecificExercise").Use(AuthRequired)
 
-		routineSpecificExercises.GET("/", controller.GetSpecificExercises)
+		routineSpecificExercises.POST("/filter", controller.GetSpecificExercises)
 
-		routineSpecificExercises.POST("/", controller.CreateSpecificExercise)
+		routineSpecificExercises.Use(checkPermission(constants.READ_ROUTINES_EXERCISES)).GET("/:id", controller.GetSpecificExercise)
 
-		routineSpecificExercises.PUT("/", controller.UpdateSpecificExercise)
+		routineSpecificExercises.Use(checkPermission(constants.CREATE_ROUTINES_EXERCISES)).POST("/", controller.CreateSpecificExercise)
 
-		routineSpecificExercises.DELETE("/:id", controller.DeleteSpecificExercise)
+		routineSpecificExercises.Use(checkPermission(constants.UPDATE_ROUTINES_EXERCISES)).PUT("/", controller.UpdateSpecificExercise)
+
+		routineSpecificExercises.Use(checkPermission(constants.DELETE_ROUTINES_EXERCISES)).DELETE("/:id", controller.DeleteSpecificExercise)
 
 		//Permissions
 		permission := v1.Group("/permission").Use(AuthRequired)
-		permission.GET("/:id", controller.GetPermission).Use(checkPermission(constants.READ_PERMISSIONS))
+		permission.Use(checkPermission(constants.READ_PERMISSIONS)).GET("/:id", controller.GetPermission)
 
-		permission.GET("/", controller.GetPermissions).Use(checkPermission(constants.READ_PERMISSIONS))
+		permission.Use(checkPermission(constants.READ_PERMISSIONS)).POST("/filter", controller.GetPermissions)
 
-		permission.POST("/", controller.CreatePermission).Use(checkPermission(constants.CREATE_PERMISSIONS))
+		permission.Use(checkPermission(constants.CREATE_PERMISSIONS)).POST("/", controller.CreatePermission)
 
-		permission.PUT("/", controller.UpdatePermission).Use(checkPermission(constants.UPDATE_PERMISSIONS))
+		permission.Use(checkPermission(constants.UPDATE_PERMISSIONS)).PUT("/", controller.UpdatePermission)
 
-		permission.DELETE("/:id", controller.DeletePermission).Use(checkPermission(constants.DELETE_PERMISSIONS))
+		permission.Use(checkPermission(constants.DELETE_PERMISSIONS)).DELETE("/:id", controller.DeletePermission)
 
 		//Roles
 		role := v1.Group("/role").Use(AuthRequired)
-		role.GET("/:id", controller.GetRole).Use(checkPermission(constants.READ_ROLES))
+		role.Use(checkPermission(constants.READ_ROLES)).GET("/:id", controller.GetRole)
 
-		role.GET("/", controller.GetRoles).Use(checkPermission(constants.READ_ROLES))
+		role.Use(checkPermission(constants.READ_ROLES)).POST("/filter", controller.GetRoles)
 
-		role.POST("/", controller.CreateRole).Use(checkPermission(constants.CREATE_ROLES))
+		role.Use(checkPermission(constants.CREATE_ROLES)).POST("/", controller.CreateRole)
 
-		role.PUT("/", controller.UpdateRole).Use(checkPermission(constants.UPDATE_ROLES))
+		role.Use(checkPermission(constants.UPDATE_ROLES)).PUT("/", controller.UpdateRole)
 
-		role.DELETE("/:id", controller.DeleteRole).Use(checkPermission(constants.DELETE_ROLES))
+		role.Use(checkPermission(constants.DELETE_ROLES)).DELETE("/:id", controller.DeleteRole)
 
 		//BaseExercise
 		baseExercise := v1.Group("/baseExercise").Use(AuthRequired)
-		baseExercise.GET("/:id", controller.GetBaseExercise).Use(checkPermission(constants.READ_BASE_EXERCISES))
+		baseExercise.GET("/:id", controller.GetBaseExercise)
 
-		baseExercise.GET("/", controller.GetBaseExercises).Use(checkPermission(constants.READ_BASE_EXERCISES))
+		baseExercise.POST("/filter", controller.GetBaseExercises)
 
-		baseExercise.POST("/", controller.CreateBaseExercise).Use(checkPermission(constants.CREATE_BASE_EXERCISES))
+		baseExercise.Use(checkPermission(constants.CREATE_BASE_EXERCISES)).POST("/", controller.CreateBaseExercise)
 
-		baseExercise.PUT("/", controller.UpdateBaseExercise).Use(checkPermission(constants.UPDATE_BASE_EXERCISES))
+		baseExercise.Use(checkPermission(constants.UPDATE_BASE_EXERCISES)).PUT("/", controller.UpdateBaseExercise)
 
-		baseExercise.DELETE("/:id", controller.DeleteBaseExercise).Use(checkPermission(constants.DELETE_BASE_EXERCISES))
+		baseExercise.Use(checkPermission(constants.DELETE_BASE_EXERCISES)).DELETE("/:id", controller.DeleteBaseExercise)
 
 		//BaseRoutine
 		baseRoutine := v1.Group("/baseRoutine").Use(AuthRequired)
-		baseRoutine.GET("/:id", controller.GetBaseRoutine).Use(checkPermission(constants.READ_BASE_ROUTINES))
+		baseRoutine.GET("/:id", controller.GetBaseRoutine)
 
-		baseRoutine.GET("/", controller.GetBaseRoutines).Use(checkPermission(constants.READ_BASE_ROUTINES))
+		baseRoutine.POST("/filter", controller.GetBaseRoutines)
 
-		baseRoutine.POST("/", controller.CreateBaseRoutine).Use(checkPermission(constants.CREATE_BASE_ROUTINES))
+		baseRoutine.Use(checkPermission(constants.CREATE_BASE_ROUTINES)).POST("/", controller.CreateBaseRoutine)
 
-		baseRoutine.PUT("/", controller.UpdateBaseRoutine).Use(checkPermission(constants.UPDATE_BASE_ROUTINES))
+		baseRoutine.Use(checkPermission(constants.UPDATE_BASE_ROUTINES)).PUT("/", controller.UpdateBaseRoutine)
 
-		baseRoutine.DELETE("/:id", controller.DeleteBaseRoutine).Use(checkPermission(constants.DELETE_BASE_ROUTINES))
+		baseRoutine.Use(checkPermission(constants.DELETE_BASE_ROUTINES)).DELETE("/:id", controller.DeleteBaseRoutine)
 
 		//RoutineCategory
 		routineCategory := v1.Group("/routineCategory").Use(AuthRequired)
-		routineCategory.GET("/:id", controller.GetRoutineCategory).Use(checkPermission(constants.READ_ROUTINE_CATEGORIES))
+		routineCategory.GET("/:id", controller.GetRoutineCategory)
 
-		routineCategory.GET("/", controller.GetRoutineCategories).Use(checkPermission(constants.READ_ROUTINE_CATEGORIES))
+		routineCategory.POST("/filter", controller.GetRoutineCategories)
 
-		routineCategory.POST("/", controller.CreateRoutineCategory).Use(checkPermission(constants.CREATE_ROUTINE_CATEGORIES))
+		routineCategory.Use(checkPermission(constants.CREATE_ROUTINE_CATEGORIES)).POST("/", controller.CreateRoutineCategory)
 
-		routineCategory.PUT("/", controller.UpdateRoutineCategory).Use(checkPermission(constants.UPDATE_ROUTINE_CATEGORIES))
+		routineCategory.Use(checkPermission(constants.UPDATE_ROUTINE_CATEGORIES)).PUT("/", controller.UpdateRoutineCategory)
 
-		routineCategory.DELETE("/:id", controller.DeleteRoutineCategory).Use(checkPermission(constants.DELETE_ROUTINE_CATEGORIES))
+		routineCategory.Use(checkPermission(constants.DELETE_ROUTINE_CATEGORIES)).DELETE("/:id", controller.DeleteRoutineCategory)
 
 		//ExerciseCategory
 		exerciseCategory := v1.Group("/exerciseCategory").Use(AuthRequired)
-		exerciseCategory.GET("/:id", controller.GetExerciseCategory).Use(checkPermission(constants.READ_EXERCISE_CATEGORY))
+		exerciseCategory.GET("/:id", controller.GetExerciseCategory)
 
-		exerciseCategory.GET("/", controller.GetExerciseCategories).Use(checkPermission(constants.READ_EXERCISE_CATEGORY))
+		exerciseCategory.POST("/filter", controller.GetExerciseCategories)
 
-		exerciseCategory.POST("/", controller.CreateExerciseCategory).Use(checkPermission(constants.CREATE_EXERCISE_CATEGORY))
+		exerciseCategory.Use(checkPermission(constants.CREATE_EXERCISE_CATEGORY)).POST("/", controller.CreateExerciseCategory)
 
-		exerciseCategory.PUT("/", controller.UpdateExerciseCategory).Use(checkPermission(constants.UPDATE_EXERCISE_CATEGORY))
+		exerciseCategory.Use(checkPermission(constants.UPDATE_EXERCISE_CATEGORY)).PUT("/", controller.UpdateExerciseCategory)
 
-		exerciseCategory.DELETE("/:id", controller.DeleteExerciseCategory).Use(checkPermission(constants.DELETE_EXERCISE_CATEGORY))
+		exerciseCategory.Use(checkPermission(constants.DELETE_EXERCISE_CATEGORY)).DELETE("/:id", controller.DeleteExerciseCategory)
 
 		//Muscles
 		muscle := v1.Group("/muscle").Use(AuthRequired)
-		muscle.GET("/:id", controller.GetMuscle).Use(checkPermission(constants.READ_MUSCLES))
+		muscle.GET("/:id", controller.GetMuscle)
 
-		muscle.GET("/", controller.GetMuscles).Use(checkPermission(constants.READ_MUSCLES))
+		muscle.POST("/filter", controller.GetMuscles)
 
-		muscle.POST("/", controller.CreateMuscle).Use(checkPermission(constants.CREATE_MUSCLES))
+		muscle.Use(checkPermission(constants.CREATE_MUSCLES)).POST("/", controller.CreateMuscle)
 
-		muscle.PUT("/", controller.UpdateMuscle).Use(checkPermission(constants.UPDATE_MUSCLES))
+		muscle.Use(checkPermission(constants.UPDATE_MUSCLES)).PUT("/", controller.UpdateMuscle)
 
-		muscle.DELETE("/:id", controller.DeleteMuscle).Use(checkPermission(constants.DELETE_MUSCLES))
+		muscle.Use(checkPermission(constants.DELETE_MUSCLES)).DELETE("/:id", controller.DeleteMuscle)
 	}
 
 	return r

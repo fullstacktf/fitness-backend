@@ -54,9 +54,14 @@ func GetUsers(c *gin.Context) {
 
 // UpdateUser Update specific user using id param in URL
 func UpdateUser(c *gin.Context) {
-
+	id, _ := strconv.Atoi(c.Param("id"))
 	updatedUser := model.User{}
 	c.BindJSON(&updatedUser)
+
+	if uint(id) != updatedUser.ID {
+		c.String(400, "Bad request")
+		return
+	}
 
 	err := service.UpdateUser(updatedUser)
 	if err != nil {

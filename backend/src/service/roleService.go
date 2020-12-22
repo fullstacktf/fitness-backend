@@ -46,10 +46,9 @@ func DeleteRole(id uint8) error {
 
 	if role.ID == 0 {
 		return errors.New("Not Found")
-	} else {
-		result := storage.DB.Delete(&role)
-		return result.Error
 	}
+	result := storage.DB.Delete(&role)
+	return result.Error
 }
 
 // PopulateRoles Function to populate the Role model

@@ -1,6 +1,8 @@
 package service
 
 import (
+	"time"
+
 	"github.com/fullstacktf/fitness-backend/constants"
 	"github.com/fullstacktf/fitness-backend/model"
 	"github.com/fullstacktf/fitness-backend/storage"
@@ -34,6 +36,11 @@ func GetUser(id int) *model.User {
 	user := model.User{}
 	storage.DB.Find(&user, id)
 
+	userRole := model.Role{}
+	storage.DB.Model(&user).Association("Role").Find(&userRole)
+
+	user.Role = userRole
+
 	return &user
 }
 
@@ -59,4 +66,44 @@ func DeleteUser(id int) {
 
 	storage.DB.Delete(&deletedUser)
 
+}
+
+// PopulateUser Function to populate the user model with example data
+func PopulateUser() {
+	user := model.User{
+		DNI:       "01234567A",
+		Name:      "usuarioEjemplo",
+		Email:     "usuarioEjemplo@youlift.xyz",
+		Phone:     "",
+		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
+		Address:   "calle ejemplo",
+		Biography: "Example biography",
+		UserRole:  3,
+	}
+
+	admin := model.User{
+		DNI:       "01234567B",
+		Name:      "adminEjemplo",
+		Email:     "adminEjemplo@youlift.xyz",
+		Phone:     "",
+		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
+		Address:   "calle ejemplo",
+		Biography: "Example biography",
+		UserRole:  1,
+	}
+
+	trainer := model.User{
+		DNI:       "01234567C",
+		Name:      "entrenadorEjemplo",
+		Email:     "entrenadorEjemplo@youlift.xyz",
+		Phone:     "",
+		BirthDate: time.Date(1990, 01, 05, 0, 0, 0, 0, time.UTC),
+		Address:   "calle ejemplo",
+		Biography: "Example biography",
+		UserRole:  1,
+	}
+
+	CreateUser(user)
+	CreateUser(admin)
+	CreateUser(trainer)
 }
