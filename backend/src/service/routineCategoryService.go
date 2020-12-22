@@ -48,27 +48,27 @@ func DeleteRoutineCategory(id int) {
 // PopulateRoutineCategory populates routines category element with basic data
 func PopulateRoutineCategory() {
 
-	fuerza := model.RoutineCategory{
-		Name: "Fuerza",
+	strength := model.RoutineCategory{
+		Name: "Strength",
 	}
 
-	rehab := model.RoutineCategory{
-		Name: "Rehabilitación",
+	rehabilitation := model.RoutineCategory{
+		Name: "Rehabilitation",
 	}
 
-	peso := model.RoutineCategory{
-		Name: "Pérdida de peso",
+	weightLoss := model.RoutineCategory{
+		Name: "Weight Loss",
 	}
 
-	mantenimiento := model.RoutineCategory{
-		Name: "Mantenimiento",
+	maintenance := model.RoutineCategory{
+		Name: "Maintenance",
 	}
 
 	categories := []model.RoutineCategory{
-		fuerza,
-		rehab,
-		peso,
-		mantenimiento,
+		strength,
+		rehabilitation,
+		weightLoss,
+		maintenance,
 	}
 
 	storage.DB.Create(&categories)

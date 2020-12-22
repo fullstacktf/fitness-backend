@@ -56,8 +56,8 @@ func PopulateMuscles() {
 		Name: "Dorsal",
 	}
 
-	cuadriceps := model.Muscle{
-		Name: "Cuadriceps",
+	quadriceps := model.Muscle{
+		Name: "Quadriceps",
 	}
 
 	biceps := model.Muscle{
@@ -68,52 +68,62 @@ func PopulateMuscles() {
 		Name: "Tríceps",
 	}
 
-	hombros := model.Muscle{
-		Name: "Hombros",
+	shoulders := model.Muscle{
+		Name: "Shoulders",
 	}
 
-	isquios := model.Muscle{
-		Name: "Isquios",
+	hamstrings := model.Muscle{
+		Name: "Hamstrings",
 	}
 
-	gluteos := model.Muscle{
-		Name: "Glúteos",
+	buttocks := model.Muscle{
+		Name: "Buttocks",
 	}
 
-	abdominales := model.Muscle{
-		Name: "abdominales",
+	abs := model.Muscle{
+		Name: "ABS",
 	}
 
-	cuello := model.Muscle{
-		Name: "Cuello",
+	neck := model.Muscle{
+		Name: "Neck",
 	}
 
-	gemelos := model.Muscle{
-		Name: "Gemelos",
+	calf := model.Muscle{
+		Name: "Calf",
 	}
 
-	antebrazo := model.Muscle{
-		Name: "Antebrazo",
+	forearm := model.Muscle{
+		Name: "Forearm",
 	}
 
-	lumbares := model.Muscle{
-		Name: "Lumbares",
+	lumbar := model.Muscle{
+		Name: "Lumbar",
+	}
+
+	calves := model.Muscle{
+		Name: "Calves",
+	}
+
+	scapular := model.Muscle{
+		Name: "Scapular Muscles",
 	}
 
 	muscles := []model.Muscle{
 		pectoral,
 		dorsal,
-		cuadriceps,
+		quadriceps,
 		biceps,
 		triceps,
-		hombros,
-		isquios,
-		gluteos,
-		abdominales,
-		cuello,
-		gemelos,
-		antebrazo,
-		lumbares,
+		shoulders,
+		hamstrings,
+		buttocks,
+		abs,
+		neck,
+		calf,
+		forearm,
+		lumbar,
+		calves,
+		scapular,
 	}
 
 	storage.DB.Create(&muscles)

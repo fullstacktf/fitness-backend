@@ -9,8 +9,8 @@ import (
 type BaseRoutine struct {
 	gorm.Model
 	CategoryID      uint64          `gorm:"column:category_id;type:bigint(20) unsigned"`
-	Name            string          `gorm:"column:name;type:varchar(15)"`
-	Description     string          `gorm:"column:description;type:varchar(30)"`
+	Name            string          `gorm:"column:name;type:varchar(100)"`
+	Description     string          `gorm:"column:description;type:varchar(600)"`
 	RoutineCategory RoutineCategory `gorm:"foreignKey:CategoryID;"`
 	BaseExercises   []*BaseExercise `gorm:"many2many:base_routines_base_exercises"`
 }
