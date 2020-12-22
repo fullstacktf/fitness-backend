@@ -28,7 +28,7 @@ func SetupRouter() *gin.Engine {
 	r.Use(sessions.Sessions("mysession", store))
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000", "https://youlift.xyz", "http://youlift.xyz"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowHeaders:     []string{"Origin", "Content-type"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
